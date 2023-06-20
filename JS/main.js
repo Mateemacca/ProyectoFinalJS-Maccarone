@@ -39,24 +39,28 @@ do {
     opciones += i + 1 + "-" + productos[i].nombre + "\n";
   }
 
-  opcion = parseInt(prompt(opciones));
-  if (opcion >= 1 && opcion <= 5) {
-    const producto = productos[opcion - 1];
-    const cantidadProductos = parseInt(
-      prompt(
-        "El precio de " +
-          producto.nombre +
-          " es $" +
-          producto.precio +
-          ". cuantas unidades desea comprar?"
-      )
-    );
-    total = productoTienda(total, producto.precio, cantidadProductos);
-    alert("El precio total hasta el momento es $" + total);
-  } else {
-    alert("Ingrese una opcion valida, por favor.");
-  }
+  let seleccionValida = false;
+  while (!seleccionValida) {
+    opcion = parseInt(prompt(opciones));
+    if (opcion >= 1 && opcion <= 5) {
+      seleccionValida = true;
+      const producto = productos[opcion - 1];
+      const cantidadProductos = parseInt(
+        prompt(
+          "El precio de " +
+            producto.nombre +
+            " es $" +
+            producto.precio +
+            ". cuantas unidades desea comprar?"
+        )
+      );
 
+      total = productoTienda(total, producto.precio, cantidadProductos);
+      alert("El precio total hasta el momento es $" + total);
+    } else {
+      alert("Ingrese una opcion valida, por favor.");
+    }
+  }
   comenzar = prompt("Quieres seguir comprando? \n 1 - Si \n 2 - No");
   for (let i = 0; i < 2; i++) {
     opciones += i + 1 + ". " + productos[i].nombre + "\n";
