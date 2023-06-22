@@ -67,7 +67,7 @@ do {
   }
 } while (comenzar !== "2" && comenzar == 1);
 
-alert("Ok, entonces el precio total es $" + total);
+alert("Ok, entonces el precio subtotal es $" + total);
 
 let metodoPago;
 let metodoPagoTexto;

@@ -1,14 +1,35 @@
+body{
+    overflow-x: hidden;
+}
 nav{
-    height: 6rem;
+    
     width: 100vw;
     background-color:#Ffff;
     box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
     display: flex;
-    position: fixed;
-    z-index: 10;
 }
 
-
+.bg-blest-cortes{
+    background-color: #090909;
+}
+    .background {
+   position: relative;
+   overflow: hidden;
+   background-color: black;
+  }
+  /* .background::before{
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    background-image: url('imgs/bgaver.png');
+    background-size: cover;
+    filter: blur(5px) ; /* Cambia el valor para ajustar el nivel de desenfoque 
+    z-index: -1;
+  } */
 /*Styling logo*/
 .logo{
     padding:1vh 1vw;
@@ -33,10 +54,10 @@ nav{
 .nav-links li a{
     text-decoration: none;
     
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 }
 .nav-links li a:hover {
-    color: #000000;
+    color: #ffffff;
    
 }
 .nav-links li {
@@ -48,7 +69,7 @@ nav{
     display: block;
     height: 3px;
     width: 0%;
-    background-color: #000000;
+    background-color: #ffffff;
     position: absolute;
     transition: all ease-in-out 180ms;
     margin: 20px auto;
@@ -107,8 +128,9 @@ nav{
 /*Stying for small screens*/
 @media screen and (max-width: 800px){
     nav{
-        position: fixed;
+        position: relative;
         z-index: 3;
+        top: 0;
     }
     .hamburger{
         display:block;
@@ -117,7 +139,7 @@ nav{
         right: 5%;
         top: 50%;
         transform: translate(-5%, -50%);
-        z-index: 2;
+        z-index: 3;
         transition: all 1s ease;
     }
     .nav-links{
@@ -207,3 +229,30 @@ nav{
     transform: rotate(45deg) translate(-5px,-6px);
     background: #ffffff;
 }
+
+strong{
+text-shadow:0px 0px 50px #fff,0px 0px 10px #ffffff;
+}
+
+
+
+  
+  .navbar-cortes, .navbar {
+    background-color: #161616
+  }  
+  /* .navbar-cortes {
+    background-color: #1f1f1f;
+  } */
+.fotos-cortes{
+    max-width: 38rem;
+    max-height: 26rem;
+}
+
+.grid-contenedor{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.max-h-xl{
+    max-height: 356px;
+}
+  
