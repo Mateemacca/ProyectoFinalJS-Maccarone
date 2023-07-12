@@ -116,7 +116,7 @@ alert(
     metodoPagoTexto +
     ". \nEl total a pagar con el recargo incluido es $" +
     totalConRecargo +
-    ".\nGracias por la confianza y por elegirnos! \n\n\nBlest BarberShop."
+    ".\nGracias por la confianza y por elegirnos! \n\nBlest BarberShop."
 );
 
 document
