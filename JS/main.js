@@ -754,257 +754,252 @@ hamburger.addEventListener("click", () => {
 //   { id: 5, nombre: "Rasuradora", precio: 33900 },
 //   { id: 6, nombre: "Maquina de pelo", precio: 40000 },
 // ];
-const productos = [
-  {
-    id: 1,
-    nombre: "Matizador",
-    categoria: "MATIZADOR",
-    precio: 1500,
-    precioAnterior: 1899,
-    imagen: "matizador.jpg",
-  },
-  {
-    id: 2,
-    nombre: "Shampoo Kerastase",
-    categoria: "SHAMPOO",
-    precio: 2000,
-    precioAnterior: 2699,
-    imagen: "shampo.webp",
-  },
-  {
-    id: 3,
-    nombre: "Acondicionador richissime exel",
-    categoria: "ACONDICIONADOR",
-    precio: 2300,
-    precioAnterior: 2999,
-    imagen: "acondicionador.webp",
-  },
-  {
-    id: 4,
-    nombre: "Navaja",
-    categoria: "NAVAJA",
-    precio: 600,
-    precioAnterior: 999,
-    imagen: "navaja.webp",
-  },
-  {
-    id: 5,
-    nombre: "Rasuradora",
-    categoria: "RASURADORA",
-    precio: 36000,
-    precioAnterior: 33900,
-    imagen: "rasuradora.web.jpg",
-  },
-  {
-    id: 6,
-    nombre: "Maquina",
-    categoria: "MAQUINA",
-    precio: 44000,
-    precioAnterior: 40000,
-    imagen: "12660-master-cordless-li-clipper-mlc-straight-stand-6.webp",
-  },
-];
+// const productos = [
+//   {
+//     id: 1,
+//     nombre: "Matizador",
+//     categoria: "MATIZADOR",
+//     precio: 1500,
+//     precioAnterior: 1899,
+//     imagen: "matizador.jpg",
+//   },
+//   {
+//     id: 2,
+//     nombre: "Shampoo Kerastase",
+//     categoria: "SHAMPOO",
+//     precio: 2000,
+//     precioAnterior: 2699,
+//     imagen: "shampo.webp",
+//   },
+//   {
+//     id: 3,
+//     nombre: "Acondicionador richissime exel",
+//     categoria: "ACONDICIONADOR",
+//     precio: 2300,
+//     precioAnterior: 2999,
+//     imagen: "acondicionador.webp",
+//   },
+//   {
+//     id: 4,
+//     nombre: "Navaja",
+//     categoria: "NAVAJA",
+//     precio: 600,
+//     precioAnterior: 999,
+//     imagen: "navaja.webp",
+//   },
+//   {
+//     id: 5,
+//     nombre: "Rasuradora",
+//     categoria: "RASURADORA",
+//     precio: 36000,
+//     precioAnterior: 33900,
+//     imagen: "rasuradora.web.jpg",
+//   },
+//   {
+//     id: 6,
+//     nombre: "Maquina",
+//     categoria: "MAQUINA",
+//     precio: 44000,
+//     precioAnterior: 40000,
+//     imagen: "12660-master-cordless-li-clipper-mlc-straight-stand-6.webp",
+//   },
+// ];
 
-let total = 0;
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-let recargoMetodoPago = 0;
-function asignarEventosAgregarAlCarrito() {
-  // agarra todos los botones con la clase "btnAgregarAlCarrito"
-  const botonesAgregarAlCarrito = document.querySelectorAll(
-    ".btnAgregarAlCarrito"
-  );
-  botonesAgregarAlCarrito.forEach((boton) => {
-    boton.addEventListener("click", (event) => {
-      const productoId = parseInt(event.target.dataset.id);
-      const productoSeleccionado = productos.find(
-        (producto) => producto.id === productoId
-      );
+// let total = 0;
+// let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+// let recargoMetodoPago = 0;
+// function asignarEventosAgregarAlCarrito() {
+//   // agarra todos los botones con la clase "btnAgregarAlCarrito"
+//   const botonesAgregarAlCarrito = document.querySelectorAll(
+//     ".btnAgregarAlCarrito"
+//   );
+//   botonesAgregarAlCarrito.forEach((boton) => {
+//     boton.addEventListener("click", (event) => {
+//       const productoId = parseInt(event.target.dataset.id);
+//       const productoSeleccionado = productos.find(
+//         (producto) => producto.id === productoId
+//       );
 
-      if (productoSeleccionado) {
-        Swal.fire({
-          title: "¿Quieres agregar este producto al carrito?",
-          text: `${productoSeleccionado.nombre}, precio: ${productoSeleccionado.precio}`,
-          showCancelButton: true,
-          confirmButtonText: "Sí",
-          cancelButtonText: "No",
-          icon: "question",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: "Ingresa la cantidad que deseas agregar:",
-              input: "number",
-              inputValidator: (value) => {
-                if (!value || parseInt(value) <= 0) {
-                  return "Ingresa una cantidad válida (mayor a cero).";
-                }
-              },
-              showCancelButton: true,
-              confirmButtonText: "Agregar",
-              cancelButtonText: "Cancelar",
-              icon: "question",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                const cantidadProducto = parseInt(result.value);
+//       if (productoSeleccionado) {
+//         Swal.fire({
+//           title: "¿Quieres agregar este producto al carrito?",
+//           text: `${productoSeleccionado.nombre}, precio: ${productoSeleccionado.precio}`,
+//           showCancelButton: true,
+//           confirmButtonText: "Sí",
+//           cancelButtonText: "No",
+//           icon: "question",
+//         }).then((result) => {
+//           if (result.isConfirmed) {
+//             Swal.fire({
+//               title: "Ingresa la cantidad que deseas agregar:",
+//               input: "number",
+//               inputValidator: (value) => {
+//                 if (!value || parseInt(value) <= 0) {
+//                   return "Ingresa una cantidad válida (mayor a cero).";
+//                 }
+//               },
+//               showCancelButton: true,
+//               confirmButtonText: "Agregar",
+//               cancelButtonText: "Cancelar",
+//               icon: "question",
+//             }).then((result) => {
+//               if (result.isConfirmed) {
+//                 const cantidadProducto = parseInt(result.value);
 
-                productoSeleccionado.cantidad = cantidadProducto;
-                carrito.push(productoSeleccionado);
-                console.log(carrito);
+//                 productoSeleccionado.cantidad = cantidadProducto;
+//                 carrito.push(productoSeleccionado);
+//                 console.log(carrito);
 
-                const carritoJSON = JSON.stringify(carrito);
+//                 const carritoJSON = JSON.stringify(carrito);
 
-                localStorage.setItem("carrito", carritoJSON);
+//                 localStorage.setItem("carrito", carritoJSON);
 
-                let carritoMensaje = "Productos en el carrito:\n";
-                for (let i = 0; i < carrito.length; i++) {
-                  const producto = carrito[i];
-                  const cantidad = producto.cantidad;
-                  carritoMensaje += `${cantidad}x ${producto.nombre} ($${
-                    producto.precio * cantidad
-                  })\n`;
-                }
+//                 let carritoMensaje = "Productos en el carrito:\n";
+//                 for (let i = 0; i < carrito.length; i++) {
+//                   const producto = carrito[i];
+//                   const cantidad = producto.cantidad;
+//                   carritoMensaje += `${cantidad}x ${producto.nombre} ($${
+//                     producto.precio * cantidad
+//                   })\n`;
+//                 }
 
-                let totalCarrito = 0;
-                for (let i = 0; i < carrito.length; i++) {
-                  const producto = carrito[i];
-                  const cantidad = producto.cantidad;
-                  totalCarrito += producto.precio * cantidad;
-                }
+//                 let totalCarrito = 0;
+//                 for (let i = 0; i < carrito.length; i++) {
+//                   const producto = carrito[i];
+//                   const cantidad = producto.cantidad;
+//                   totalCarrito += producto.precio * cantidad;
+//                 }
 
-                // recargo (en un futuro pondre recargo segun el metodo de pago)
-                const recargoPorcentaje = 0;
-                totalCarrito += totalCarrito * recargoPorcentaje;
-                Swal.fire(
-                  "Perfecto!",
-                  `Se ha(n) añadido ${cantidadProducto} ${productoSeleccionado.nombre}(s) exitosamente!`,
-                  "success"
-                );
-              }
-            });
-          }
-        });
-      }
-    });
-  });
-}
-asignarEventosAgregarAlCarrito();
-document
-  .getElementById("btnMostrarCarrito")
-  .addEventListener("click", function () {
-    // Mostrar el carrito
-    let carritoMensaje = "Productos en el carrito:\n";
-    let subtotal = 0; // Subtotal sin recargo
+//                 // recargo (en un futuro pondre recargo segun el metodo de pago)
+//                 const recargoPorcentaje = 0;
+//                 totalCarrito += totalCarrito * recargoPorcentaje;
+//                 Swal.fire(
+//                   "Perfecto!",
+//                   `Se ha(n) añadido ${cantidadProducto} ${productoSeleccionado.nombre}(s) exitosamente!`,
+//                   "success"
+//                 );
+//               }
+//             });
+//           }
+//         });
+//       }
+//     });
+//   });
+// }
+// asignarEventosAgregarAlCarrito();
+// document
+//   .getElementById("btnMostrarCarrito")
+//   .addEventListener("click", function () {
+//     // Mostrar el carrito
+//     let carritoMensaje = "Productos en el carrito:\n";
+//     let subtotal = 0; // Subtotal sin recargo
 
-    for (let i = 0; i < carrito.length; i++) {
-      const producto = carrito[i];
-      const nombreProducto = producto.nombre;
-      const cantidad = producto.cantidad; // Agregar la cantidad del producto al carrito
+//     for (let i = 0; i < carrito.length; i++) {
+//       const producto = carrito[i];
+//       const nombreProducto = producto.nombre;
+//       const cantidad = producto.cantidad; // Agregar la cantidad del producto al carrito
 
-      subtotal += producto.precio * cantidad; // Actualizar el subtotal con el precio del producto y la cantidad
+//       subtotal += producto.precio * cantidad; // Actualizar el subtotal con el precio del producto y la cantidad
 
-      carritoMensaje += `${cantidad}x ${nombreProducto} (${
-        producto.precio * cantidad
-      }$)\n`;
-    }
+//       carritoMensaje += `${cantidad}x ${nombreProducto} (${
+//         producto.precio * cantidad
+//       }$)\n`;
+//     }
 
-    // Calcular el total con recargo
-    const totalConRecargo = Math.round(subtotal + subtotal * recargoMetodoPago);
-    carritoMensaje += `\nTotal del carrito: $${totalConRecargo}`;
+//     // Calcular el total con recargo
+//     const totalConRecargo = Math.round(subtotal + subtotal * recargoMetodoPago);
+//     carritoMensaje += `\nTotal del carrito: $${totalConRecargo}`;
 
-    const hayElementosEnCarrito = carrito.length > 0; // para ver si hay elementos en el carrito
-    Swal.fire({
-      title: carritoMensaje,
-      showConfirmButton: hayElementosEnCarrito,
-      showCancelButton: true,
-      cancelButtonText: "Ok",
-      confirmButtonText: "Vaciar Carrito",
-      confirmButtonColor: "red",
-      showCloseButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Vaciar el carrito
-        carrito = [];
-        // Reiniciar el total
-        subtotal = 0;
-        // Reiniciar el recargo del método de pago
-        recargoMetodoPago = 0;
+//     const hayElementosEnCarrito = carrito.length > 0; // para ver si hay elementos en el carrito
+//     Swal.fire({
+//       title: carritoMensaje,
+//       showConfirmButton: hayElementosEnCarrito,
+//       showCancelButton: true,
+//       cancelButtonText: "Ok",
+//       confirmButtonText: "Vaciar Carrito",
+//       confirmButtonColor: "red",
+//       showCloseButton: true,
+//     }).then((result) => {
+//       if (result.isConfirmed) {
+//         // Vaciar el carrito
+//         carrito = [];
+//         // Reiniciar el total
+//         subtotal = 0;
+//         // Reiniciar el recargo del método de pago
+//         recargoMetodoPago = 0;
 
-        // Limpiar el localStorage
-        localStorage.removeItem("carrito");
-        localStorage.removeItem("totalCarrito");
+//         // Limpiar el localStorage
+//         localStorage.removeItem("carrito");
+//         localStorage.removeItem("totalCarrito");
 
-        // Mostrar un mensaje de éxito al usuario
-        Swal.fire({
-          icon: "success",
-          title: "Carrito vaciado",
-          text: "El carrito se ha vaciado correctamente.",
-        });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // Aquí puedes ejecutar alguna acción al cancelar
-        console.log("Botón Cancelar presionado");
-      }
-    });
-  });
+//         // Mostrar un mensaje de éxito al usuario
+//         Swal.fire({
+//           icon: "success",
+//           title: "Carrito vaciado",
+//           text: "El carrito se ha vaciado correctamente.",
+//         });
+//       } else if (result.dismiss === Swal.DismissReason.cancel) {
+//         // Aquí puedes ejecutar alguna acción al cancelar
+//         console.log("Botón Cancelar presionado");
+//       }
+//     });
+//   });
 
-document
-  .getElementById("inputBuscarProducto")
-  .addEventListener("input", function () {
-    const searchTerm = this.value.trim().toLowerCase();
+// document
+//   .getElementById("inputBuscarProducto")
+//   .addEventListener("input", function () {
+//     const searchTerm = this.value.trim().toLowerCase();
 
-    const resultados = productos.filter((producto) =>
-      producto.nombre.toLowerCase().includes(searchTerm)
-    );
+//     const resultados = productos.filter((producto) =>
+//       producto.nombre.toLowerCase().includes(searchTerm)
+//     );
 
-    const listaProductos = document.getElementById("listaProductos");
+//     const listaProductos = document.getElementById("listaProductos");
 
-    while (listaProductos.firstChild) {
-      listaProductos.removeChild(listaProductos.firstChild);
-    }
+//     while (listaProductos.firstChild) {
+//       listaProductos.removeChild(listaProductos.firstChild);
+//     }
 
-    if (resultados.length > 0) {
-      resultados.forEach((producto) => {
-        const productoElemento = document.createElement("div");
-        productoElemento.classList.add("product-card");
+//     if (resultados.length > 0) {
+//       resultados.forEach((producto) => {
+//         const productoElemento = document.createElement("div");
+//         productoElemento.classList.add("product-card");
 
-        if (producto.nombre === "Navaja") {
-          // navaja en el index tiene un padding, agregar el padding solo si se busca navaja
-          productoElemento.classList.add("p-4");
-        }
+//         productoElemento.innerHTML = `
+//         <div class="badge">Hot SALE</div>
+//         <div class="product-tumb">
+//           <a href=""><img src="imgs/${
+//             producto.imagen || "producto-no-encontrado.jpg"
+//           }" alt="${producto.nombre}"${
+//           producto.nombre === "Navaja"
+//             ? ' class="py-10 max-h-400 bg-white"'
+//             : ""
+//         }></a>
+//         </div>
+//         <div class="product-details">
+//           <span class="product-catagory">${producto.categoria}</span>
+//           <h4><a href="">${producto.nombre}</a></h4>
+//           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p>
+//           <div class="product-bottom-details">
+//             <div class="product-price"><small>$${
+//               producto.precioAnterior
+//             }</small>$${producto.precio}</div>
+//             <div class="product-links">
+//               <button><a href=""><i class="fa fa-heart"></i></a></button>
+//               <button data-id="${
+//                 producto.id
+//               }" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
+//             </div>
+//           </div>
+//         </div>`;
 
-        productoElemento.innerHTML = `
-        <div class="badge">Hot SALE</div>
-        <div class="product-tumb">
-          <a href=""><img src="imgs/${
-            producto.imagen || "producto-no-encontrado.jpg"
-          }" alt=""></a>
-        </div>
-        <div class="product-details">
-          <span class="product-catagory">${producto.categoria}</span>
-          <h4><a href="">${producto.nombre}</a></h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p>
-          <div class="product-bottom-details">
-            <div class="product-price"><small>$${
-              producto.precioAnterior
-            }</small>$${producto.precio}</div>
-            <div class="product-links">
-              <button><a href=""><i class="fa fa-heart"></i></a></button>
-              <button data-id="${
-                producto.id
-              }" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
-            </div>
-          </div>
-        </div>`;
-
-        listaProductos.appendChild(productoElemento);
-      });
-    } else {
-      // Mostrar todos los productos si no hay término de búsqueda
-      productos.forEach((producto) => {
-        // Crea el elemento del producto y agrega el contenido (igual que arriba)
-        // ...
-      });
-    }
-    asignarEventosAgregarAlCarrito();
-  });
+//         listaProductos.appendChild(productoElemento);
+//       });
+//     } else {
+//       productos.forEach((producto) => {});
+//     }
+//     asignarEventosAgregarAlCarrito();
+//   });
 
 // const productos1 = [
 //   {
@@ -1068,4 +1063,254 @@ document
 //
 ///
 //
-//
+
+const productos = [
+  {
+    id: 1,
+    nombre: "Matizador",
+    categoria: "MATIZADOR",
+    precio: 1500,
+    precioAnterior: 1899,
+    imagen: "matizador.jpg",
+    favorito: false,
+  },
+  {
+    id: 2,
+    nombre: "Shampoo Kerastase",
+    categoria: "SHAMPOO",
+    precio: 2000,
+    precioAnterior: 2699,
+    imagen: "shampo.webp",
+    favorito: false,
+  },
+  {
+    id: 3,
+    nombre: "Acondicionador richissime exel",
+    categoria: "ACONDICIONADOR",
+    precio: 2300,
+    precioAnterior: 2999,
+    imagen: "acondicionador.webp",
+    favorito: false,
+  },
+  {
+    id: 4,
+    nombre: "Navaja",
+    categoria: "NAVAJA",
+    precio: 600,
+    precioAnterior: 999,
+    imagen: "navaja.webp",
+    favorito: false,
+  },
+  {
+    id: 5,
+    nombre: "Rasuradora",
+    categoria: "RASURADORA",
+    precio: 36000,
+    precioAnterior: 33900,
+    imagen: "rasuradora.web.jpg",
+    favorito: false,
+  },
+  {
+    id: 6,
+    nombre: "Maquina",
+    categoria: "MAQUINA",
+    precio: 44000,
+    precioAnterior: 40000,
+    imagen: "12660-master-cordless-li-clipper-mlc-straight-stand-6.webp",
+    favorito: false,
+  },
+];
+let total = 0;
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let recargoMetodoPago = 0;
+
+function agregarProductoAlCarrito(productoSeleccionado, cantidadProducto) {
+  const productoEnCarrito = carrito.find(
+    (item) => item.id === productoSeleccionado.id
+  );
+
+  if (productoEnCarrito) {
+    productoEnCarrito.cantidad += cantidadProducto;
+  } else {
+    productoSeleccionado.cantidad = cantidadProducto;
+    carrito.push(productoSeleccionado);
+  }
+
+  const carritoJSON = JSON.stringify(carrito);
+  localStorage.setItem("carrito", carritoJSON);
+
+  Swal.fire(
+    "Perfecto!",
+    `Se ha(n) añadido ${cantidadProducto} ${productoSeleccionado.nombre}(s) exitosamente!`,
+    "success"
+  );
+}
+
+function mostrarCarrito() {
+  let carritoMensaje = "Productos en el carrito:\n";
+  let subtotal = 0; // Subtotal sin recargo
+
+  for (let i = 0; i < carrito.length; i++) {
+    const producto = carrito[i];
+    const nombreProducto = producto.nombre;
+    const cantidad = producto.cantidad; // Agregar la cantidad del producto al carrito
+
+    subtotal += producto.precio * cantidad; // Actualizar el subtotal con el precio del producto y la cantidad
+
+    carritoMensaje += `${cantidad}x ${nombreProducto} ($${
+      producto.precio * cantidad
+    })\n`;
+  }
+
+  // Calcular el total con recargo
+  const totalConRecargo = Math.round(subtotal + subtotal * recargoMetodoPago);
+  carritoMensaje += `\nTotal del carrito: $${totalConRecargo}`;
+
+  const hayElementosEnCarrito = carrito.length > 0; // para ver si hay elementos en el carrito
+  Swal.fire({
+    title: carritoMensaje,
+    showConfirmButton: hayElementosEnCarrito,
+    showCancelButton: true,
+    cancelButtonText: "Ok",
+    confirmButtonText: "Vaciar Carrito",
+    confirmButtonColor: "red",
+    showCloseButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Vaciar el carrito
+      carrito = [];
+      // Reiniciar el total
+      subtotal = 0;
+      // Reiniciar el recargo del método de pago
+      recargoMetodoPago = 0;
+
+      // Limpiar el localStorage
+      localStorage.removeItem("carrito");
+      localStorage.removeItem("totalCarrito");
+
+      // Mostrar un mensaje de éxito al usuario
+      Swal.fire({
+        icon: "success",
+        title: "Carrito vaciado",
+        text: "El carrito se ha vaciado correctamente.",
+      });
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      // Aquí puedes ejecutar alguna acción al cancelar
+      console.log("Botón Cancelar presionado");
+    }
+  });
+}
+
+function asignarEventosAgregarAlCarrito() {
+  // agarra el elemento padre que contiene todos los productos
+  const listaProductos = document.getElementById("listaProductos");
+  if (listaProductos) {
+    listaProductos.addEventListener("click", (event) => {
+      if (event.target.classList.contains("btnAgregarAlCarrito")) {
+        const productoId = parseInt(event.target.dataset.id);
+        const productoSeleccionado = productos.find(
+          (producto) => producto.id === productoId
+        );
+
+        if (productoSeleccionado) {
+          Swal.fire({
+            title: "¿Quieres agregar este producto al carrito?",
+            text: `${productoSeleccionado.nombre}, precio: ${productoSeleccionado.precio}`,
+            showCancelButton: true,
+            confirmButtonText: "Sí",
+            cancelButtonText: "No",
+            icon: "question",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Ingresa la cantidad que deseas agregar:",
+                input: "number",
+                inputValidator: (value) => {
+                  if (!value || parseInt(value) <= 0) {
+                    return "Ingresa una cantidad válida (mayor a cero).";
+                  }
+                },
+                showCancelButton: true,
+                confirmButtonText: "Agregar",
+                cancelButtonText: "Cancelar",
+                icon: "question",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  const cantidadProducto = parseInt(result.value);
+
+                  agregarProductoAlCarrito(
+                    productoSeleccionado,
+                    cantidadProducto
+                  );
+
+                  mostrarCarrito();
+                }
+              });
+            }
+          });
+        }
+      }
+    });
+  }
+}
+
+asignarEventosAgregarAlCarrito();
+
+document
+  .getElementById("btnMostrarCarrito")
+  .addEventListener("click", mostrarCarrito);
+
+document
+  .getElementById("inputBuscarProducto")
+  .addEventListener("input", function () {
+    const searchTerm = this.value.trim().toLowerCase();
+
+    const resultados = productos.filter((producto) =>
+      producto.nombre.toLowerCase().includes(searchTerm)
+    );
+
+    const listaProductos = document.getElementById("listaProductos");
+
+    while (listaProductos.firstChild) {
+      listaProductos.removeChild(listaProductos.firstChild);
+    }
+
+    if (resultados.length > 0) {
+      resultados.forEach((producto) => {
+        const productoElemento = document.createElement("div");
+        productoElemento.classList.add("product-card");
+
+        productoElemento.innerHTML = `
+        <div class="badge">Hot SALE</div>
+        <div class="product-tumb">
+          <a href=""><img src="imgs/${
+            producto.imagen || "producto-no-encontrado.jpg"
+          }" alt="${producto.nombre}"${
+          producto.nombre === "Navaja"
+            ? ' class="py-10 max-h-400 bg-white"'
+            : ""
+        }></a>
+        </div>
+        <div class="product-details">
+          <span class="product-catagory">${producto.categoria}</span>
+          <h4><a href="">${producto.nombre}</a></h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p>
+          <div class="product-bottom-details">
+            <div class="product-price"><small>$${
+              producto.precioAnterior
+            }</small>$${producto.precio}</div>
+            <div class="product-links">
+              <button><a href=""><i class="fa fa-heart"></i></a></button>
+              <button data-id="${
+                producto.id
+              }" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
+            </div>
+          </div>
+        </div>`;
+
+        listaProductos.appendChild(productoElemento);
+      });
+    } else {
+      productos.forEach((producto) => {});
+    }
+  });
