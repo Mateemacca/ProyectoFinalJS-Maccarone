@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
     
+
     <title>Document</title>
 </head>
 <body class='bg-blest-cortes'>
@@ -26,35 +28,63 @@
             <li><a href="#" class="font-bold">Servicios</a></li>
             <li><a href="cortes.html" class="font-bold">Cortes</a></li>
         </ul>
+        <div class="flex justify-center text-white mx-5 font-bold text-xl navbar-cortes rounded-3xl  text-center align-middle   my-auto">
+            <button class="rounded-2xl hover:bg-neutral-800 p-4 active:bg-black active:opacity-96 active:scale-110 active:ease-in-out duration-200" id="btnMostrarCarrito" class=""><i class="ri-shopping-cart-2-fill flex"></i></button>
+            <button class=" rounded-2xl p-4 hover:bg-neutral-800 active:bg-black active:opacity-96 active:scale-110 active:ease-in-out duration-200" ><i class="fa fa-heart"></i></button>
+        </div>
     </nav>
-    <div class="grid grid-cols-3 gap-4 mx-auto my-8 max-w-7xl">
-        <!-- Slot 1 -->
-        <div class="">
+
+    <!-- <div class="page-container my-32 place-content-center align-middle h-full flex justify-center flex-col"> -->
+        <!-- <input type="text" id="inputBuscarProducto" placeholder="Ingrese el nombre del producto" class="mt-1 px-3 py-2 ring-slate-900/5 shadow-sm border-slate-300 placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-1/3 rounded-md sm:text-sm focus:ring-1 flex justify-center mx-auto"> -->
+
+        <!-- <div class="relative">
+            
+            <input id="inputBuscarProducto" class="block mx-auto pl-10 pr-4 py-2 border border-gray-900 rounded-lg leading-5 bg-gray-800 placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:placeholder-gray-400 focus:shadow-outline-indigo w-3/4 sm:text-sm" type="text" placeholder="Buscar productos...">
+          </div> -->
+
+          <form action="" class="search-bar">
+            <input type="search" name="search" pattern=".*\S.*" required id="inputBuscarProducto">
+            <button class="search-btn" type="submit">
+                <span>Search</span>
+            </button>
+        </form>
+          <!-- <div class="container">
+            <input type="text" placeholder="Search...">
+            <div class="search"></div>
+          </div> -->
+      
+       
+      
+    </div>
+    <div class="grid grid-cols-3 gap-4 mx-auto my-8 max-w-7xl" id="listaProductos" >
+        <!-- Producto 1 -->
+        <div >
             <div class="product-card">
                 <div class="badge">Hot SALE</div>
                 <div class="product-tumb">
-                    <img src="imgs/acondicionador.webp" alt="">
+                    <a href=""><img src="imgs/matizador.jpg" alt=""></a>
                 </div>
                 <div class="product-details">
-                    <span class="product-catagory">ACONDICIONADOR</span>
-                    <h4><a href="">acondicionador richissime exel</a></h4>
+                    <span class="product-catagory">MATIZADOR</span>
+			<h4><a href="">ICON PURE LIGHT MATIZADOR 250 ML</a></h4>
+                    
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p>
                     <div class="product-bottom-details">
-                        <div class="product-price"><small>$2999</small>$2300</div>
+                        <div class="product-price"><small>$1899</small>$1500</div>
                         <div class="product-links">
                             <button><a href=""><i class="fa fa-heart"></i></a></button>
-                            <button><a href=""><i class="fa fa-shopping-cart"></i></a></button>
+                            <button data-id="1" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Slot 2 -->
+        <!-- Producto 2 -->
         <div class="aspect-w-16 aspect-h-9">
             <div class="product-card">
                 <div class="badge">Hot SALE</div>
                 <div class="product-tumb">
-                    <img src="imgs/shampo.webp" alt="">
+                   <a href=""> <img src="imgs/shampo.webp" alt=""></a>
                 </div>
                 <div class="product-details">
                     <span class="product-catagory">SHAMPOO</span>
@@ -63,40 +93,41 @@
                     <div class="product-bottom-details">
                         <div class="product-price"><small>$2699</small>$2000</div>
                         <div class="product-links">
-                            <a href=""><i class="fa fa-heart"></i></a>
-                            <a href=""><i class="fa fa-shopping-cart"></i></a>
+                            <button><a href=""><i class="fa fa-heart"></i></a></button>
+                            <button data-id="2" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Slot 3 -->
+        <!-- Producto 3 -->
         <div class="aspect-w-16 aspect-h-9">
           	<div class="product-card">
 		<div class="badge">Hot SALE</div>
 		<div class="product-tumb">
-			<img src="imgs/matizador.jpg" alt="">
+			
+            <a href=""><img src="imgs/acondicionador.webp" alt=""></a>
 		</div>
 		<div class="product-details">
-			<span class="product-catagory">MATIZADOR</span>
-			<h4><a href="">ICON PURE LIGHT MATIZADOR 250 ML</a></h4>
+			<span class="product-catagory">ACONDICIONADOR</span>
+            <h4><a href="">acondicionador richissime exel</a></h4>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p>
 			<div class="product-bottom-details">
-				<div class="product-price"><small>$1899</small>$1500</div>
+                <div class="product-price"><small>$2999</small>$2300</div>
 				<div class="product-links">
-					<a href=""><i class="fa fa-heart"></i></a>
-					<a href=""><i class="fa fa-shopping-cart"></i></a>
+					<button><a href=""><i class="fa fa-heart"></i></a></button>
+					<button data-id="3" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
 				</div>
 			</div>
 		</div>
 	</div>
         </div>
-        <!-- Slot 4 -->
+        <!-- Producto 4 -->
         <div class="aspect-w-16 aspect-h-9">
           	<div class="product-card">
 		<div class="badge">Hot SALE</div>
 		<div class="product-tumb">
-			<img class="py-10 max-h-400 bg-white" src="imgs/navaja.webp" alt="">
+			<a href=""><img class="py-10 max-h-400 bg-white" src="imgs/navaja.webp" alt=""></a>
 		</div>
 		<div class="product-details">
 			<span class="product-catagory">NAVAJA</span>
@@ -105,19 +136,20 @@
 			<div class="product-bottom-details">
 				<div class="product-price"><small>$999</small>$600</div>
 				<div class="product-links">
-					<a href=""><i class="fa fa-heart"></i></a>
-					<a href=""><i class="fa fa-shopping-cart"></i></a>
+					<button><a href=""><i class="fa fa-heart"></i></a></button>
+					<button data-id="4" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
+                    </button>
 				</div>
 			</div>
 		</div>
 	</div>
         </div>
-        <!-- Slot 5 -->
+        <!-- Producto 5 -->
         <div class="aspect-w-16 aspect-h-9">
           	<div class="product-card">
 		<div class="badge">Hot SALE</div>
 		<div class="product-tumb">
-			<img src="imgs/rasuradora.web.jpg" alt="">
+			<a href=""><img src="imgs/rasuradora.web.jpg" alt=""></a>
 		</div>
 		<div class="product-details">
 			<span class="product-catagory">RASURADORA</span>
@@ -126,8 +158,8 @@
 			<div class="product-bottom-details">
 				<div class="product-price"><small>$36000</small>$33900</div>
 				<div class="product-links">
-					<a href=""><i class="fa fa-heart"></i></a>
-					<a href=""><i class="fa fa-shopping-cart"></i></a>
+					<button><a href=""><i class="fa fa-heart"></i></a></button>
+					<button data-id="5" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
 				</div>
 			</div>
 		</div>
@@ -137,7 +169,7 @@
             	<div class="product-card">
 		<div class="badge">Hot SALE</div>
 		<div class="product-tumb">
-			<img src="imgs/12660-master-cordless-li-clipper-mlc-straight-stand-6.webp" alt="">
+			<a href=""><img src="imgs/12660-master-cordless-li-clipper-mlc-straight-stand-6.webp" alt=""></a>
 		</div>
 		<div class="product-details">
 			<span class="product-catagory">MAQUINA</span>
@@ -146,15 +178,21 @@
 			<div class="product-bottom-details">
 				<div class="product-price"><small>$44000</small>40000</div>
 				<div class="product-links">
-					<a href=""><i class="fa fa-heart"></i></a>
-					<a href=""><i class="fa fa-shopping-cart"></i></a>
+					<button><a href=""><i class="fa fa-heart"></i></a></button>
+					<button data-id="6" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
 				</div>
 			</div>
 		</div>
 	</div>
           </div>
       </div>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <script src="main.js"></script>
-</body>
+  
+    <!-- </div> -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+      <script src="JS/main.js"></script>
+     
+      
+    </body>
 </html>
