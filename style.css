@@ -383,6 +383,7 @@ a
     color: #000000;
 }
 
+
 .max-h-400{
 max-height: 400px !important;
 }
@@ -554,3 +555,130 @@ max-height: 400px !important;
             background-color: white!important;
           
     }
+
+    .boton-presionado{
+        
+        color: rgb(0, 0, 0) !important;
+    }
+
+
+    .productoCarritoStyle{
+        box-shadow: 0 2px 20px #dfdfdf;
+    }
+
+    
+
+  
+  /* Estilos para el panel desplegable */
+  .carrito-panel {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Inicialmente oculto */
+    width: 400px;
+    height: 100%;
+    background-color: #ffffff;
+    transition: right 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.7);
+  }
+  
+  .carrito-panel.activo {
+    right: 0; /* Mostrar el panel al abrirlo */
+  }
+  
+  .carrito-content {
+    padding: 20px;
+  }
+ 
+  .cerrar-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  
+  /* Estilos para los iconos de agregar y restar */
+  
+  
+
+.agregar-producto, .restar-producto{
+    background-color: #d9d9d9;
+  color: black;
+  border-radius: 5px;
+    row-gap: 100px;
+    margin: 0 5px;
+    padding: 0 ;
+    
+}
+.cantidad-producto button{
+    padding: 0;
+}
+
+  .imagen-producto{
+    width: 100px;
+  }
+  .total-carrito {
+    padding: 20px;
+    margin-bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    bottom: 0;
+   
+}
+
+/* Agrega esta regla para el contenedor del panel del carrito */
+.carrito-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Asegura que el contenedor ocupe el 100% del alto disponible */
+    position: relative; /* Importante para posicionar el div "Total del carrito" */
+    max-height: calc(100vh - 50px); /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto; /* Agrega un scroll vertical si el contenido excede el alto máximo */
+  }
+  
+  /* Agrega esta regla para el div "Total del carrito" */
+  .total-carrito {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 30px; /* Agrega algún padding para espaciado */
+    background-color: #f8f8f8; /* Puedes personalizar el fondo */
+  }
+
+  .detalle-producto {
+    justify-content: space-between;
+  }
+ /* Agrega esta regla para el contenedor del nombre y la cantidad */
+/* Agrega esta regla para el contenedor del nombre y la cantidad */
+.nombre-cantidad {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+  }
+  
+/* Agrega esta regla para el contenedor del texto del producto */
+.detalle-texto {
+    flex: 1;
+  }
+  
+  /* Agrega esta regla para el contenedor de nombre y cantidad */
+  .nombre-cantidad {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Agrega esta regla para el contenedor de cantidad */
+  .cantidad-producto {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Agrega esta regla para el texto de cantidad */
+  .cantidad {
+    margin: 0 5px; /* Ajusta el margen entre el botón y el número */
+  }
+  

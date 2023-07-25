@@ -1,324 +1,502 @@
-function productoTienda(totalProducto, costo, cantidad) {
-  return totalProducto + costo * cantidad;
-}
+//Hamburguesa Navbar
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector(".nav-links");
+const links = document.querySelectorAll(".nav-links li");
+
+hamburger.addEventListener("click", () => {
+  //Animacion de los links
+  navLinks.classList.toggle("open");
+  links.forEach((link) => {
+    link.classList.toggle("fade");
+  });
+
+  //Animacion de la hamburguesa
+  hamburger.classList.toggle("toggle");
+});
 
 const productos = [
-  { nombre: "Matizador", precio: 1500 },
-  { nombre: "Shampoo", precio: 2000 },
-  { nombre: "Acondicionador anti-caspa", precio: 2300 },
-  { nombre: "Navaja", precio: 600 },
-  { nombre: "Rasuradora", precio: 33900 },
-  { nombre: "Maquina de pelo", precio: 40000 },
+  {
+    id: 1,
+    nombre: "Matizador",
+    categoria: "MATIZADOR",
+    precio: 1500,
+    precioAnterior: 1899,
+    imagen: "matizador.jpg",
+    favorito: false,
+  },
+  {
+    id: 2,
+    nombre: "Shampoo Kerastase",
+    categoria: "SHAMPOO",
+    precio: 2000,
+    precioAnterior: 2699,
+    imagen: "shampo.webp",
+    favorito: false,
+  },
+  {
+    id: 3,
+    nombre: "Acondicionador richissime exel",
+    categoria: "ACONDICIONADOR",
+    precio: 2300,
+    precioAnterior: 2999,
+    imagen: "acondicionador.webp",
+    favorito: false,
+  },
+  {
+    id: 4,
+    nombre: "Navaja",
+    categoria: "NAVAJA",
+    precio: 600,
+    precioAnterior: 999,
+    imagen: "navaja.webp",
+    favorito: false,
+  },
+  {
+    id: 5,
+    nombre: "Rasuradora",
+    categoria: "RASURADORA",
+    precio: 33900,
+    precioAnterior: 36000,
+    imagen: "rasuradora.web.jpg",
+    favorito: false,
+  },
+  {
+    id: 6,
+    nombre: "Maquina",
+    categoria: "MAQUINA",
+    precio: 40000,
+    precioAnterior: 44000,
+    imagen: "12660-master-cordless-li-clipper-mlc-straight-stand-6.webp",
+    favorito: false,
+  },
 ];
-
 let total = 0;
-let opcion;
-let comenzar;
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-let recargoMetodoPago = 0; // Variable para almacenar el recargo del método de pago seleccionado
+let recargoMetodoPago = 0;
 
-const mostrarOpcionesProducto = async () => {
-  let opciones = "<p>Seleccioná un producto mediante un número:</p><br>";
-  for (let i = 0; i < productos.length; i++) {
-    opciones += `<p>${i + 1}. ${productos[i].nombre}</p>`;
-  }
-
-  let seleccionValida = false;
-  while (!seleccionValida) {
-    const { value: option } = await Swal.fire({
-      title: "Elegí un producto",
-      html: opciones,
-      input: "number",
-      inputValidator: (value) => {
-        if (!value || value < 1 || value > productos.length) {
-          return "Ingresá una opción válida";
-        }
-      },
-      customClass: {
-        popup: "swal2-popup-dark",
-      },
-    });
-
-    opcion = parseInt(option);
-    seleccionValida = opcion >= 1 && opcion <= productos.length;
-    const producto = productos[opcion - 1];
-    let cantidadProductos;
-
-    while (true) {
-      const { value: cantidad } = await Swal.fire({
-        title: `El precio de ${producto.nombre} es $${producto.precio}`,
-        text: "Cuantas unidades querés comprar?",
-        input: "number",
-        inputValidator: (value) => {
-          if (!value || value < 1) {
-            return "Ingresá una cantidad válida";
-          }
-        },
-      });
-
-      cantidadProductos = parseInt(cantidad);
-
-      if (cantidadProductos >= 1) {
-        break;
-      }
-    }
-
-    total = productoTienda(total, producto.precio, cantidadProductos);
-
-    carrito.push({
-      nombre: producto.nombre,
-      precio: producto.precio,
-      cantidad: cantidadProductos,
-    });
-  }
-
-  const { value: continuar } = await Swal.fire({
-    title: "Querés seguir comprando?",
-    text: `El precio total hasta el momento es $${total}`,
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonText: "Si",
-    cancelButtonText: "No",
-  });
-
-  comenzar = continuar ? "1" : "2";
-
-  if (comenzar === "1") {
-    mostrarOpcionesProducto();
-  } else {
-    mostrarMetodoPago();
-  }
-};
-
-const mostrarMetodoPago = async () => {
-  let metodoPago;
-  let metodoPagoTexto;
-
-  const { value: metodo } = await Swal.fire({
-    title: "Selecciona el método de pago",
-    html: `<select id="metodoPago" class="swal2-input">
-        <option value="1">Efectivo</option>
-        <option value="2">Tarjeta de crédito (15% de recargo)</option>
-        <option value="3">Tarjeta de débito (10% de recargo)</option>
-      </select>`,
-    preConfirm: () => {
-      return document.getElementById("metodoPago").value;
-    },
-  });
-
-  metodoPago = parseInt(metodo);
-
-  switch (metodoPago) {
-    case 1:
-      metodoPagoTexto = "Efectivo";
-      recargoMetodoPago = 0;
-      break;
-    case 2:
-      recargoMetodoPago = 0.15;
-      metodoPagoTexto = "Tarjeta de crédito";
-      break;
-    case 3:
-      recargoMetodoPago = 0.1;
-      metodoPagoTexto = "Tarjeta de débito";
-      break;
-    default:
-      Swal.fire("Método de pago no válido");
-      mostrarMetodoPago();
-      return;
-  }
-
-  const totalConRecargo = Math.round(total + total * recargoMetodoPago);
-  // Convertir el carrito a formato JSON
-  const carritoJSON = JSON.stringify(carrito);
-
-  // Guardar el carrito en el localStorage
-  localStorage.setItem("carrito", carritoJSON);
-  localStorage.setItem(
-    "metodoPago",
-    JSON.stringify({
-      metodo: metodoPago,
-      recargo: recargoMetodoPago,
-    })
+function agregarProductoAlCarrito(productoSeleccionado, cantidadProducto) {
+  const productoEnCarrito = carrito.find(
+    (item) => item.id === productoSeleccionado.id
   );
 
+  if (productoEnCarrito) {
+    productoEnCarrito.cantidad += cantidadProducto;
+  } else {
+    productoSeleccionado.cantidad = cantidadProducto;
+    carrito.push(productoSeleccionado);
+  }
+
+  const carritoJSON = JSON.stringify(carrito);
+  localStorage.setItem("carrito", carritoJSON);
+
   Swal.fire(
-    `Como seleccionaste como metodo de pago ${metodoPagoTexto}, el total a pagar con el recargo incluido es $${totalConRecargo}`
-  ).then(() => {
-    Swal.fire(
-      "Perfecto!",
-      "Tu compra ha sido realizada con éxito, gracias por confiar en BlestBarberShop",
-      "success"
-    );
-  });
-};
+    "Perfecto!",
+    `Se ha(n) añadido ${cantidadProducto} ${productoSeleccionado.nombre}(s) exitosamente!`,
+    "success"
+  );
+}
+
+function mostrarCarrito() {
+  let carritoMensaje = "Productos en el carrito:\n";
+  let subtotal = 0; // Subtotal sin recargo
+
+  for (let i = 0; i < carrito.length; i++) {
+    const producto = carrito[i];
+    const nombreProducto = producto.nombre;
+    const cantidad = producto.cantidad; // Agregar la cantidad del producto al carrito
+
+    subtotal += producto.precio * cantidad; // Actualizar el subtotal con el precio del producto y la cantidad
+
+    carritoMensaje += `${cantidad}x ${nombreProducto} ($${
+      producto.precio * cantidad
+    })\n`;
+  }
+
+  // Calcular el total con recargo
+  const totalConRecargo = Math.round(subtotal + subtotal * recargoMetodoPago);
+  carritoMensaje += `\nTotal del carrito: $${totalConRecargo}`;
+
+  const hayElementosEnCarrito = carrito.length > 0; // para ver si hay elementos en el carrito
+  // Swal.fire({
+  //   title: carritoMensaje,
+  //   showConfirmButton: hayElementosEnCarrito,
+  //   showCancelButton: true,
+  //   cancelButtonText: "Ok",
+  //   confirmButtonText: "Vaciar Carrito",
+  //   confirmButtonColor: "red",
+  //   showCloseButton: true,
+  // }).then((result) => {
+  //   if (result.isConfirmed) {
+  //     // Vaciar el carrito
+  //     carrito = [];
+  //     // Reiniciar el total
+  //     subtotal = 0;
+  //     // Reiniciar el recargo del método de pago
+  //     recargoMetodoPago = 0;
+
+  //     // Limpiar el localStorage
+  //     localStorage.removeItem("carrito");
+  //     localStorage.removeItem("totalCarrito");
+
+  //     // Mostrar un mensaje de éxito al usuario
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Carrito vaciado",
+  //       text: "El carrito se ha vaciado correctamente.",
+  //     });
+  //   } else if (result.dismiss === Swal.DismissReason.cancel) {
+  //     // Aquí puedes ejecutar alguna acción al cancelar
+  //     console.log("Botón Cancelar presionado");
+  //   }
+  // });
+}
+
+function asignarEventosAgregarAlCarrito() {
+  // agarra el elemento padre que contiene todos los productos
+  const listaProductos = document.getElementById("listaProductos");
+  if (listaProductos) {
+    listaProductos.addEventListener("click", (event) => {
+      if (event.target.classList.contains("btnAgregarAlCarrito")) {
+        const productoId = parseInt(event.target.dataset.id);
+        const productoSeleccionado = productos.find(
+          (producto) => producto.id === productoId
+        );
+
+        if (productoSeleccionado) {
+          Swal.fire({
+            title: "¿Quieres agregar este producto al carrito?",
+            text: `${productoSeleccionado.nombre}, precio: ${productoSeleccionado.precio}`,
+            showCancelButton: true,
+            confirmButtonText: "Sí",
+            cancelButtonText: "No",
+            icon: "question",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Ingresa la cantidad que deseas agregar:",
+                input: "number",
+                inputValidator: (value) => {
+                  if (!value || parseInt(value) <= 0) {
+                    return "Ingresa una cantidad válida (mayor a cero).";
+                  }
+                },
+                showCancelButton: true,
+                confirmButtonText: "Agregar",
+                cancelButtonText: "Cancelar",
+                icon: "question",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  const cantidadProducto = parseInt(result.value);
+
+                  agregarProductoAlCarrito(
+                    productoSeleccionado,
+                    cantidadProducto
+                  );
+
+                  mostrarCarrito();
+                }
+              });
+            }
+          });
+        }
+      }
+    });
+  }
+}
+
+asignarEventosAgregarAlCarrito();
 
 document
   .getElementById("btnMostrarCarrito")
-  .addEventListener("click", function () {
-    let carritoMensaje = "Productos en el carrito:\n";
-    let totalCarrito = 0;
-    let productosAgrupados = {};
+  .addEventListener("click", mostrarCarrito);
 
-    for (let i = 0; i < carrito.length; i++) {
-      const producto = carrito[i];
-      const nombreProducto = producto.nombre;
-      const cantidad = producto.cantidad;
-
-      if (productosAgrupados.hasOwnProperty(nombreProducto)) {
-        productosAgrupados[nombreProducto].cantidad += cantidad;
-        productosAgrupados[nombreProducto].subtotal +=
-          producto.precio * cantidad;
-      } else {
-        productosAgrupados[nombreProducto] = {
-          cantidad: cantidad,
-          subtotal: producto.precio * cantidad,
-        };
-      }
-
-      totalCarrito += producto.precio * cantidad;
-    }
-
-    let subtotal = totalCarrito; // subtotal sin recargo
-
-    if (recargoMetodoPago !== 0) {
-      subtotal = Math.round(subtotal - subtotal * recargoMetodoPago); // resta el recargo al subtotal
-      totalCarrito = Math.round(
-        totalCarrito + totalCarrito * recargoMetodoPago
-      );
-    }
-
-    for (const nombreProducto in productosAgrupados) {
-      const productoAgrupado = productosAgrupados[nombreProducto];
-      carritoMensaje += `${productoAgrupado.cantidad}x ${nombreProducto} (${productoAgrupado.subtotal}$)\n `;
-    }
-
-    if (recargoMetodoPago !== 0) {
-      carritoMensaje += `\nTotal del carrito con recargo: $${totalCarrito}`; //muestra el total del carrito con el recargo incluido
-    }
-    // const carritoMensajeConfig = {
-    //   title: "Productos en el carrito",
-    //   html: document.getElementById("btnVaciarCarrito"), // Agregamos el botón personalizado aquí
-    //   showCancelButton: true,
-    //   showCloseButton: true,
-    //   showConfirmButton: true,
-    // };
-    const hayElementosEnCarrito = carrito.length > 0; // para ver si hay elementos en el carrito
-    Swal.fire({
-      title: carritoMensaje,
-      showConfirmButton: hayElementosEnCarrito,
-      showCancelButton: true,
-      cancelButtonText: "Ok",
-      confirmButtonText: "Vaciar Carrito",
-      confirmButtonColor: "red",
-      showCloseButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Vaciar el carrito
-        carrito = [];
-        // Reiniciar el total
-        totalCarrito = 0;
-        // Reiniciar el recargo del método de pago
-        recargoMetodoPago = 0;
-
-        // Limpiar el localStorage
-        localStorage.removeItem("carrito");
-        localStorage.removeItem("totalCarrito");
-
-        // Mostrar un mensaje de éxito al usuario
-        Swal.fire({
-          icon: "success",
-          title: "Carrito vaciado",
-          text: "El carrito se ha vaciado correctamente.",
-        });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // Aquí puedes ejecutar alguna acción al cancelar
-        console.log("Botón Cancelar presionado");
-      }
-    });
-  });
 document
-  .getElementById("btnBuscarProducto")
-  .addEventListener("click", async function () {
-    const { value: nombreProducto } = await Swal.fire({
-      title: "Buscar producto",
-      input: "text",
-      inputPlaceholder: "Ingresá el nombre del producto que querés buscar",
-    });
+  .getElementById("inputBuscarProducto")
+  .addEventListener("input", function () {
+    const searchTerm = this.value.trim().toLowerCase();
 
-    if (nombreProducto) {
-      let mensaje = "Resultados de búsqueda:\n";
-      const options = {
-        keys: ["nombre"],
-        threshold: 0.4,
-      };
+    const resultados = productos.filter((producto) =>
+      producto.nombre.toLowerCase().includes(searchTerm)
+    );
 
-      const fuse = new Fuse(productos, options);
-      const resultados = fuse.search(nombreProducto);
+    const listaProductos = document.getElementById("listaProductos");
 
-      if (resultados.length > 0) {
-        for (let i = 0; i < resultados.length; i++) {
-          const producto = resultados[i].item;
-          mensaje += `Producto: ${producto.nombre}\n Precio: $${producto.precio}\n`;
-        }
-      } else {
-        mensaje = "No se encontraron productos que coincidan con la búsqueda.";
-      }
+    while (listaProductos.firstChild) {
+      listaProductos.removeChild(listaProductos.firstChild);
+    }
 
-      Swal.fire(mensaje);
+    if (resultados.length > 0) {
+      resultados.forEach((producto) => {
+        const productoElemento = document.createElement("div");
+        productoElemento.classList.add("product-card");
+
+        productoElemento.innerHTML = `
+        <div class="badge">Hot SALE</div>
+        <div class="product-tumb">
+          <a href=""><img src="imgs/${
+            producto.imagen || "producto-no-encontrado.jpg"
+          }" alt="${producto.nombre}"${
+          producto.nombre === "Navaja"
+            ? ' class="py-10 max-h-400 bg-white"'
+            : ""
+        }></a>
+        </div>
+        <div class="product-details">
+          <span class="product-catagory">${producto.categoria}</span>
+          <h4><a href="">${producto.nombre}</a></h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p>
+          <div class="product-bottom-details">
+            <div class="product-price"><small>$${
+              producto.precioAnterior
+            }</small>$${producto.precio}</div>
+            <div class="product-links">
+            <button class="btnAgregarAFavoritos" data-id="${producto.id}">
+            <i class="far fa-heart relative z-0 pointer-events-none"></i> <!-- Corazón vacío -->
+          </button>
+              <button data-id="${
+                producto.id
+              }" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
+            </div>
+          </div>
+        </div>`;
+
+        listaProductos.appendChild(productoElemento);
+      });
+    } else {
+      productos.forEach((producto) => {});
     }
   });
-document
-  .getElementById("btnVaciarCarrito")
-  .addEventListener("click", function () {
-    // Vaciar el carrito
-    carrito = [];
-    // Reiniciar el total
-    total = 0;
-    // Reiniciar el recargo del método de pago
-    recargoMetodoPago = 0;
 
-    // Limpiar el localStorage
-    localStorage.removeItem("carrito");
+function añadirAFavoritos(productoId) {
+  const productoSeleccionado = productos.find(
+    (producto) => producto.id === productoId
+  );
 
-    // Mostrar un mensaje de éxito al usuario
-    Swal.fire({
-      icon: "success",
-      title: "Carrito vaciado",
-      text: "El carrito se ha vaciado correctamente.",
-    });
+  if (productoSeleccionado) {
+    productoSeleccionado.favorito = true;
+    // Aquí puedes guardar el producto en la lista de favoritos en el LocalStorage si deseas mantenerlo entre sesiones.
+    // También puedes mostrar una notificación o SweetAlert aquí para indicar que el producto se agregó a favoritos.
+  }
+}
+
+const productosLocal = JSON.parse(localStorage.getItem("favorites"));
+
+// Función para quitar un producto de la lista de favoritos
+function removeFromFavorites(productoId) {
+  const productoSeleccionado = productosLocal.find(
+    (producto) => producto.id === productoId
+  );
+
+  if (productoSeleccionado) {
+    productoSeleccionado.favorito = false;
+    // Aquí puedes quitar el producto de la lista de favoritos en el LocalStorage si lo guardaste previamente.
+    // También puedes mostrar una notificación o SweetAlert aquí para indicar que el producto se quitó de favoritos.
+  }
+}
+
+// Asignar eventos para los botones de favoritos
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("btnAgregarAFavoritos")) {
+    const productoId = parseInt(event.target.dataset.id);
+    toggleFavoriteOnClick(productoId);
+  }
+});
+
+// Función para obtener la lista de productos favoritos del LocalStorage
+function getFavoritesFromLocalStorage() {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  return favorites;
+}
+
+// Función para guardar la lista de productos favoritos en el LocalStorage
+function saveFavoritesToLocalStorage(favorites) {
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+// Función para agregar un producto a la lista de favoritos
+function añadirAFavoritos(productoId) {
+  const productoSeleccionado = productos.find(
+    (producto) => producto.id === productoId
+  );
+
+  if (productoSeleccionado) {
+    productoSeleccionado.favorito = true;
+    const favorites = getFavoritesFromLocalStorage();
+    favorites.push(productoSeleccionado);
+    saveFavoritesToLocalStorage(favorites);
+    // Aquí puedes mostrar una notificación o SweetAlert para indicar que el producto se agregó a favoritos.
+  }
+}
+
+// Función para quitar un producto de la lista de favoritos
+function removeFromFavorites(productoId) {
+  const productoSeleccionado = productos.find(
+    (producto) => producto.id === productoId
+  );
+
+  if (productoSeleccionado) {
+    productoSeleccionado.favorito = false;
+    let favorites = getFavoritesFromLocalStorage();
+    favorites = favorites.filter((producto) => producto.id !== productoId);
+    saveFavoritesToLocalStorage(favorites);
+    // Aquí puedes mostrar una notificación o SweetAlert para indicar que el producto se quitó de favoritos.
+  }
+}
+// Función para cargar los productos favoritos desde el LocalStorage y actualizar los iconos de corazón
+function loadFavoritesFromLocalStorage() {
+  const favorites = getFavoritesFromLocalStorage();
+  favorites.forEach((favorito) => {
+    const botonFavorito = document.querySelector(`[data-id="${favorito.id}"]`);
+    if (botonFavorito) {
+      botonFavorito.innerHTML =
+        '<i class="fa fa-heart boton-presionado pointer-events-none"></i>'; // Cambiar al corazón relleno
+    }
   });
+}
 
-mostrarOpcionesProducto();
+// Agregar el evento "DOMContentLoaded" para cargar los productos favoritos al cargar la página
+document.addEventListener("DOMContentLoaded", loadFavoritesFromLocalStorage);
 
-// const respuestaJSON =
-//   '{"nombre":"Shampoo","precio":990,"categoria":"Cuidado personal"}';
-// const respuestaObjeto = JSON.stringify(productos);
-// console.log(respuestaObjeto);
-
-function agregarAlCarrito() {
-  let botones = document.querySelectorAll(".btnAgregarAlCarrito");
-  for (const boton of botones) {
-    boton.onclick = (e) => {
-      const productoId = parseInt(e.target.id);
-      const productoSeleccionado = productos.find(
-        (producto) => producto.id === productoId
-      );
-
-      if (productoSeleccionado) {
-        new swal({
-          title: "Desea agregar el producto al carrito?",
-          text: `${productoSeleccionado.nombre}, precio: ${productoSeleccionado.precio}`,
-
-          buttons: ["Cancelar", "Aceptar"],
-        }).then((respuesta) => {
-          if (respuesta.value) {
-            carrito.push(productoSeleccionado);
-            console.log(carrito);
-          }
-        });
-      }
-    };
+//
+function toggleFavoriteOnClick(productoId) {
+  const favorites = getFavoritesFromLocalStorage();
+  const productoEnLista = favorites.find(
+    (producto) => producto.id === productoId
+  );
+  const botonFavorito = document.querySelector(`[data-id="${productoId}"]`);
+  if (productoEnLista) {
+    // Si el producto ya está en favoritos, lo quitamos de la lista
+    favorites.splice(favorites.indexOf(productoEnLista), 1);
+    removeFromFavorites(productoId);
+    botonFavorito.innerHTML =
+      '<i class="far fa-heart pointer-events-none"></i>';
+  } else {
+    // Si el producto no está en favoritos, lo agregamos a la lista
+    const productoSeleccionado = productos.find(
+      (producto) => producto.id === productoId
+    );
+    if (productoSeleccionado) {
+      favorites.push(productoSeleccionado);
+      añadirAFavoritos(productoId);
+      botonFavorito.innerHTML =
+        '<i class="fa fa-heart pointer-events-none boton-presionado "></i>'; // Cambiar al corazón relleno
+    }
   }
 
-  agregarAlCarrito();
+  // Guardar la lista actualizada de favoritos en el LocalStorage
+  saveFavoritesToLocalStorage(favorites);
+}
+function mostrarFavoritos() {
+  const favorites = getFavoritesFromLocalStorage();
+  let favoritosMensaje = "Productos en favoritos:\n";
+
+  if (favorites.length === 0) {
+    favoritosMensaje = "No tienes productos en favoritos.";
+  } else {
+    favorites.forEach((favorito) => {
+      favoritosMensaje += `${favorito.nombre}\n`;
+    });
+  }
+
+  // Mostrar la información de favoritos en una ventana emergente o SweetAlert
+  Swal.fire({
+    title: "Favoritos",
+    text: favoritosMensaje,
+    icon: "info",
+    confirmButtonText: "Cerrar",
+  });
+}
+document
+  .getElementById("btnMostrarFavoritos")
+  .addEventListener("click", mostrarFavoritos);
+
+let carritoPanelAbierto = false; // Variable de estado para controlar si el panel está abierto o cerrado
+
+function toggleCarritoPanel() {
+  const carritoPanel = document.getElementById("carritoPanel");
+  carritoPanelAbierto = !carritoPanelAbierto; // Cambiar el estado (abierto o cerrado)
+  if (carritoPanelAbierto) {
+    carritoPanel.classList.add("activo");
+  } else {
+    carritoPanel.classList.remove("activo");
+  }
+  actualizarProductosEnCarrito();
+}
+function actualizarProductosEnCarrito() {
+  const carritoProductos = document.querySelector(".carrito-productos");
+  carritoProductos.innerHTML = "";
+  let totalCarrito = 0;
+  for (const producto of carrito) {
+    const cantidad = producto.cantidad;
+    const nombreProducto = producto.nombre;
+    const precioProducto = producto.precio * cantidad;
+    const imagenProducto = producto.imagen;
+    totalCarrito += precioProducto;
+    const productoDiv = document.createElement("div");
+    productoDiv.classList.add("producto-carrito");
+    productoDiv.innerHTML = `
+    <div class="detalle-producto flex items-center">
+  <img class="imagen-producto" src="imgs/${imagenProducto}" alt="${nombreProducto}">
+  <div class="detalle-texto">
+    <div class="nombre-cantidad">
+      <h3 class="font-bold max-w-[50%]">${nombreProducto}</h3>
+      <div class="cantidad-producto flex items-center">
+        <button class="restar-producto" onclick="restarProducto(${producto.id})"><i class="ri-subtract-line"></i></button>
+        <span class="cantidad">${cantidad}</span>
+        <button class="agregar-producto" onclick="agregarProducto(${producto.id})"><i class="ri-add-line"></i></button>
+      </div>
+    </div>
+    <p class="font-bold text-l">Precio: $${precioProducto}</p>
+  </div>
+</div>
+<hr>
+      
+    `;
+
+    carritoProductos.appendChild(productoDiv);
+  }
+  const totalCarritoDiv = document.getElementById("totalCarrito");
+  totalCarritoDiv.textContent = `Total del carrito: $${totalCarrito}`;
+}
+
+function agregarProducto(productoId) {
+  const productoSeleccionado = carrito.find(
+    (producto) => producto.id === productoId
+  );
+
+  if (productoSeleccionado) {
+    productoSeleccionado.cantidad++; // Incrementar la cantidad del producto
+  } else {
+    // El producto no está en el carrito, agregarlo con cantidad 1
+    const producto = productos.find((producto) => producto.id === productoId);
+    if (producto) {
+      producto.cantidad = 1;
+      carrito.push(producto);
+    }
+  }
+
+  actualizarCarritoLocalStorage(); // Actualizar el carrito en el LocalStorage
+  actualizarProductosEnCarrito(); // Actualizar la vista del carrito
+}
+
+function restarProducto(productoId) {
+  const productoSeleccionado = carrito.find(
+    (producto) => producto.id === productoId
+  );
+
+  if (productoSeleccionado) {
+    if (productoSeleccionado.cantidad > 1) {
+      productoSeleccionado.cantidad--; // Decrementar la cantidad del producto
+    } else {
+      // Si la cantidad es 1, eliminar el producto del carrito
+      carrito = carrito.filter((producto) => producto.id !== productoId);
+    }
+    actualizarCarritoLocalStorage(); // Actualizar el carrito en el LocalStorage
+    actualizarProductosEnCarrito(); // Actualizar la vista del carrito
+  }
+}
+
+function actualizarCarritoLocalStorage() {
+  const carritoJSON = JSON.stringify(carrito);
+  localStorage.setItem("carrito", carritoJSON);
 }
