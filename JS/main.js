@@ -17,7 +17,7 @@ hamburger.addEventListener("click", () => {
 const productos = [
   {
     id: 1,
-    nombre: "Matizador",
+    nombre: "Matizador Icon Light",
     categoria: "MATIZADOR",
     precio: 1500,
     precioAnterior: 1899,
@@ -96,61 +96,6 @@ function agregarProductoAlCarrito(productoSeleccionado, cantidadProducto) {
   );
 }
 
-// function mostrarCarrito() {
-//   let carritoMensaje = "Productos en el carrito:\n";
-//   let subtotal = 0; // Subtotal sin recargo
-
-//   for (let i = 0; i < carrito.length; i++) {
-//     const producto = carrito[i];
-//     const nombreProducto = producto.nombre;
-//     const cantidad = producto.cantidad; // Agregar la cantidad del producto al carrito
-
-//     subtotal += producto.precio * cantidad; // Actualizar el subtotal con el precio del producto y la cantidad
-
-//     carritoMensaje += `${cantidad}x ${nombreProducto} ($${
-//       producto.precio * cantidad
-//     })\n`;
-//   }
-
-//   // Calcular el total con recargo
-//   const totalConRecargo = Math.round(subtotal + subtotal * recargoMetodoPago);
-//   carritoMensaje += `\nTotal del carrito: $${totalConRecargo}`;
-
-//   const hayElementosEnCarrito = carrito.length > 0; // para ver si hay elementos en el carrito
-// Swal.fire({
-//   title: carritoMensaje,
-//   showConfirmButton: hayElementosEnCarrito,
-//   showCancelButton: true,
-//   cancelButtonText: "Ok",
-//   confirmButtonText: "Vaciar Carrito",
-//   confirmButtonColor: "red",
-//   showCloseButton: true,
-// }).then((result) => {
-//   if (result.isConfirmed) {
-//     // Vaciar el carrito
-//     carrito = [];
-//     // Reiniciar el total
-//     subtotal = 0;
-//     // Reiniciar el recargo del método de pago
-//     recargoMetodoPago = 0;
-
-//     // Limpiar el localStorage
-//     localStorage.removeItem("carrito");
-//     localStorage.removeItem("totalCarrito");
-
-//     // Mostrar un mensaje de éxito al usuario
-//     Swal.fire({
-//       icon: "success",
-//       title: "Carrito vaciado",
-//       text: "El carrito se ha vaciado correctamente.",
-//     });
-//   } else if (result.dismiss === Swal.DismissReason.cancel) {
-//     // Aquí puedes ejecutar alguna acción al cancelar
-//     console.log("Botón Cancelar presionado");
-//   }
-// });
-// }
-
 function asignarEventosAgregarAlCarrito() {
   // agarra el elemento padre que contiene todos los productos
   const listaProductos = document.getElementById("listaProductos");
@@ -167,7 +112,7 @@ function asignarEventosAgregarAlCarrito() {
             title: "¿Quieres agregar este producto al carrito?",
             text: `${productoSeleccionado.nombre}, precio: ${productoSeleccionado.precio}`,
             showCancelButton: true,
-            confirmButtonText: "Sí",
+            confirmButtonText: "Si",
             cancelButtonText: "No",
             icon: "question",
           }).then((result) => {
@@ -177,7 +122,7 @@ function asignarEventosAgregarAlCarrito() {
                 input: "number",
                 inputValidator: (value) => {
                   if (!value || parseInt(value) <= 0) {
-                    return "Ingresa una cantidad válida (mayor a cero).";
+                    return "Ingresá una cantidad valida (mayor a cero).";
                   }
                 },
                 showCancelButton: true,
@@ -192,8 +137,6 @@ function asignarEventosAgregarAlCarrito() {
                     productoSeleccionado,
                     cantidadProducto
                   );
-
-                  // mostrarCarrito();
                 }
               });
             }
@@ -205,10 +148,6 @@ function asignarEventosAgregarAlCarrito() {
 }
 
 asignarEventosAgregarAlCarrito();
-
-// document
-//   .getElementById("btnMostrarCarrito")
-//   .addEventListener("click", mostrarCarrito);
 
 document
   .getElementById("inputBuscarProducto")
@@ -228,19 +167,24 @@ document
     if (resultados.length > 0) {
       resultados.forEach((producto) => {
         const productoElemento = document.createElement("div");
-        productoElemento.classList.add("product-card");
-        const isFavorito = VerificarEsProductoFavorito(producto.id); // Verificamos si el producto está en favoritos
+        productoElemento.classList.add(
+          "product-card",
+          "rounded-xl",
+          "rounded-t-xl",
+          "rounded-xl"
+        );
+        const isFavorito = verificarEsProductoFavorito(producto.id); // verifica si el producto esta en favoritos
 
         productoElemento.innerHTML = `
           <div class="badge">Hot SALE</div>
-          <div class="product-tumb">
-            <a href=""><img src="imgs/${
-              producto.imagen || "producto-no-encontrado.jpg"
-            }" alt="${producto.nombre}"${
-          producto.nombre === "Navaja"
-            ? ' class="py-10 max-h-400 bg-white"'
-            : ""
-        }></a>
+          <div class="product-tumb rounded-t-xl bg-white">
+            <a href=""><img class="pointer-events-none rounded-t-xl bg-white ${
+              producto.nombre === "Navaja"
+                ? "py-10 max-h-400 bg-white rounded-t-xl"
+                : ""
+            }"
+          src="imgs/${producto.imagen || "producto-no-encontrado.jpg"}"
+          alt="${producto.nombre}"></a>
           </div>
           <div class="product-details">
             <span class="product-catagory">${producto.categoria}</span>
@@ -260,7 +204,7 @@ document
                 </button>
                 <button data-id="${
                   producto.id
-                }" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart relative z-0 pointer-events-none"></i></button>
+                }" class="btnAgregarAlCarrito"><i class="fa fa-shopping-cart   pointer-events-none"></i></button>
               </div>
             </div>
           </div>`;
@@ -274,7 +218,7 @@ document
           }
         }
 
-        function removeFromFavorites(productoId) {
+        function sacarDeFavoritos(productoId) {
           const productoSeleccionado = productos.find(
             (producto) => producto.id === productoId
           );
@@ -284,14 +228,14 @@ document
           }
         }
 
-        function toggleFavoriteOnClick(productoId) {
+        function toggleFavoritoClick(productoId) {
           const productoSeleccionado = productos.find(
             (producto) => producto.id === productoId
           );
 
           if (productoSeleccionado) {
             if (productoSeleccionado.favorito) {
-              removeFromFavorites(productoId);
+              sacarDeFavoritos(productoId);
             } else {
               añadirAFavoritos(productoId);
             }
@@ -314,7 +258,7 @@ document
       loadFavoritesFromLocalStorage();
     }
   });
-function VerificarEsProductoFavorito(productoId) {
+function verificarEsProductoFavorito(productoId) {
   const favorites = getFavoritesFromLocalStorage();
   return favorites.some((favorito) => favorito.id === productoId);
 }
@@ -325,46 +269,40 @@ function añadirAFavoritos(productoId) {
 
   if (productoSeleccionado) {
     productoSeleccionado.favorito = true;
-    // Aquí puedes guardar el producto en la lista de favoritos en el LocalStorage si deseas mantenerlo entre sesiones.
-    // También puedes mostrar una notificación o SweetAlert aquí para indicar que el producto se agregó a favoritos.
   }
 }
 
 const productosLocal = JSON.parse(localStorage.getItem("favorites"));
 
-// Función para quitar un producto de la lista de favoritos
-function removeFromFavorites(productoId) {
+// funcion para sacar un producto de la lista de favoritos
+function sacarDeFavoritos(productoId) {
   const productoSeleccionado = productosLocal.find(
     (producto) => producto.id === productoId
   );
 
   if (productoSeleccionado) {
     productoSeleccionado.favorito = false;
-    // Aquí puedes quitar el producto de la lista de favoritos en el LocalStorage si lo guardaste previamente.
-    // También puedes mostrar una notificación o SweetAlert aquí para indicar que el producto se quitó de favoritos.
   }
 }
 
-// Asignar eventos para los botones de favoritos
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("btnAgregarAFavoritos")) {
     const productoId = parseInt(event.target.dataset.id);
-    toggleFavoriteOnClick(productoId);
+    toggleFavoritoClick(productoId);
   }
 });
 
-// Función para obtener la lista de productos favoritos del LocalStorage
+// funcion para obtener la lista de productos favoritos del localstorage
 function getFavoritesFromLocalStorage() {
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
   return favorites;
 }
 
-// Función para guardar la lista de productos favoritos en el LocalStorage
+// funcion para guardarlos en el localstorage
 function saveFavoritesToLocalStorage(favorites) {
   localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
-// Función para agregar un producto a la lista de favoritos
 function añadirAFavoritos(productoId) {
   const productoSeleccionado = productos.find(
     (producto) => producto.id === productoId
@@ -375,12 +313,10 @@ function añadirAFavoritos(productoId) {
     const favorites = getFavoritesFromLocalStorage();
     favorites.push(productoSeleccionado);
     saveFavoritesToLocalStorage(favorites);
-    // Aquí puedes mostrar una notificación o SweetAlert para indicar que el producto se agregó a favoritos.
   }
 }
 
-// Función para quitar un producto de la lista de favoritos
-function removeFromFavorites(productoId) {
+function sacarDeFavoritos(productoId) {
   const productoSeleccionado = productos.find(
     (producto) => producto.id === productoId
   );
@@ -390,39 +326,38 @@ function removeFromFavorites(productoId) {
     let favorites = getFavoritesFromLocalStorage();
     favorites = favorites.filter((producto) => producto.id !== productoId);
     saveFavoritesToLocalStorage(favorites);
-    // Aquí puedes mostrar una notificación o SweetAlert para indicar que el producto se quitó de favoritos.
   }
 }
-// Función para cargar los productos favoritos desde el LocalStorage y actualizar los iconos de corazón
+// funcion para cargar los productos favoritos desde el localstorage y actualizar el icon de corazon
 function loadFavoritesFromLocalStorage() {
   const favorites = getFavoritesFromLocalStorage();
   favorites.forEach((favorito) => {
     const botonFavorito = document.querySelector(`[data-id="${favorito.id}"]`);
     if (botonFavorito) {
       botonFavorito.innerHTML =
-        '<i class="fa fa-heart boton-presionado pointer-events-none"></i>'; // Cambiar al corazón relleno
+        '<i class="fa fa-heart boton-presionado pointer-events-none"></i>'; // Cambiar al corazon relleno
     }
   });
 }
 
-// Agregar el evento "DOMContentLoaded" para cargar los productos favoritos al cargar la página
+//"domContentloaded" para cargar los productos favoritos al cargar la pagina
 document.addEventListener("DOMContentLoaded", loadFavoritesFromLocalStorage);
 
 //
-function toggleFavoriteOnClick(productoId) {
+function toggleFavoritoClick(productoId) {
   const favorites = getFavoritesFromLocalStorage();
   const productoEnLista = favorites.find(
     (producto) => producto.id === productoId
   );
   const botonFavorito = document.querySelector(`[data-id="${productoId}"]`);
   if (productoEnLista) {
-    // Si el producto ya está en favoritos, lo quitamos de la lista
+    // si el producto esta en favoritos, lo saca de la lista
     favorites.splice(favorites.indexOf(productoEnLista), 1);
-    removeFromFavorites(productoId);
+    sacarDeFavoritos(productoId);
     botonFavorito.innerHTML =
       '<i class="far fa-heart pointer-events-none"></i>';
   } else {
-    // Si el producto no está en favoritos, lo agregamos a la lista
+    // y si el producto no esta en favoritos, lo agrega a la lista
     const productoSeleccionado = productos.find(
       (producto) => producto.id === productoId
     );
@@ -430,26 +365,42 @@ function toggleFavoriteOnClick(productoId) {
       favorites.push(productoSeleccionado);
       añadirAFavoritos(productoId);
       botonFavorito.innerHTML =
-        '<i class="fa fa-heart pointer-events-none boton-presionado "></i>'; // Cambiar al corazón relleno
+        '<i class="fa fa-heart pointer-events-none boton-presionado "></i>'; // cambia el icono a un corazon entero
     }
   }
 
-  // Guardar la lista actualizada de favoritos en el LocalStorage
+  // guarda favoritos en el localstorage
   saveFavoritesToLocalStorage(favorites);
 }
 function mostrarFavoritos() {
   const favorites = getFavoritesFromLocalStorage();
-  let favoritosMensaje = "Productos en favoritos:<br>";
+  let favoritosMensaje = "Productos en favoritos:<br><hr>";
 
   if (favorites.length === 0) {
     favoritosMensaje = "No tienes productos en favoritos.";
   } else {
     favorites.forEach((favorito) => {
-      favoritosMensaje += `${favorito.nombre}<br>`;
+      favoritosMensaje += `
+      <br>
+      <div class="flex items-center">
+      <div class="w-1/4">
+        <img src="imgs/${
+          favorito.imagen || "producto-no-encontrado.jpg"
+        }" alt="${favorito.nombre}" style="width: 100px; height: 100px;">
+        </div>
+        <div class="w-1/2 font-bold text-xl">
+          <span>${favorito.nombre}</span>
+          <div>Precio: $${favorito.precio}</div>
+          
+        </div>
+      </div>
+      <br>
+      <hr>
+    `;
     });
   }
 
-  // Mostrar la información de favoritos en una ventana emergente o SweetAlert
+  //muestra los favoritos en swal
   Swal.fire({
     title: "Favoritos",
     html: favoritosMensaje,
@@ -458,36 +409,33 @@ function mostrarFavoritos() {
     showCloseButton: true,
   });
 }
-document
-  .getElementById("btnMostrarFavoritos")
-  .addEventListener("click", mostrarFavoritos);
 
-let carritoPanelAbierto = false; // Variable de estado para controlar si el panel está abierto o cerrado
+//verifica si el boton "btnMostrarFavoritos" existe en la pagina
+const btnMostrarFavoritos = document.getElementById("btnMostrarFavoritos");
+if (btnMostrarFavoritos) {
+  btnMostrarFavoritos.addEventListener("click", mostrarFavoritos);
+}
+//panel desplegable del carrito
+let carritoPanelAbierto = false;
 
 function finalizarCompra() {
-  // Vaciar el carrito y el total del carrito en el LocalStorage
+  // vacia el carrito y el total del carrito en el localstorage
   localStorage.removeItem("carrito");
-  localStorage.removeItem("totalCarrito"); // Si el total del carrito se hubiera guardado con este nombre
-
-  // Limpiar el carrito en memoria
+  localStorage.removeItem("totalCarrito");
   carrito = [];
-  // Reiniciar el total
   total = 0;
-
-  // Actualizar la vista del carrito para mostrar que está vacío
   actualizarProductosEnCarrito();
 
-  // Mostrar un mensaje de éxito al usuario
   Swal.fire({
     icon: "success",
     title: "Compra finalizada",
-    text: "La compra se ha finalizado con éxito. ¡Gracias por tu compra!",
+    text: "La compra se ha realizado con exito. ¡Gracias por tu compra!",
   });
 }
 //
 function toggleCarritoPanel() {
   const carritoPanel = document.getElementById("carritoPanel");
-  carritoPanelAbierto = !carritoPanelAbierto; // Cambiar el estado (abierto o cerrado)
+  carritoPanelAbierto = !carritoPanelAbierto; //cambia el estado (abierto/ cerrado)
   if (carritoPanelAbierto) {
     carritoPanel.classList.add("activo");
   } else {
@@ -528,30 +476,71 @@ function actualizarProductosEnCarrito() {
 
     carritoProductos.appendChild(productoDiv);
   }
+  const contenedorBotonesCarrito = document.getElementById("contenedorBotones");
+
   const totalCarritoDiv = document.getElementById("totalCarrito");
-  totalCarritoDiv.innerHTML = `Total del carrito: $${totalCarrito}
-  <button id="btnFinalizarCompra" onclick="finalizarCompra()" class="btn-finalizar-compra">Finalizar compra</button>`;
+  totalCarritoDiv.innerHTML = `<h1 class="mx-auto items-center flex">Total del carrito: $${totalCarrito}</h1>
+  `;
+  totalCarritoDiv.appendChild(contenedorBotonesCarrito);
+  const hayElementosEnCarrito = carrito.length > 0;
+
+  if (btnVaciarCarrito) {
+    btnVaciarCarrito.style.display = hayElementosEnCarrito ? "block" : "none";
+  }
+
+  if (btnFinalizarCompra) {
+    btnFinalizarCompra.style.display = hayElementosEnCarrito ? "block" : "none";
+  }
 }
 
+// muestra u oculta los botones vaciar carrito y finalizar compra segun si hay elementos en el carrito o no
+
+function vaciarCarrito() {
+  Swal.fire({
+    title: "¿Seguro que queres vaciar el carrito?",
+    text: "",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Si, vaciar carrito",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      carrito = [];
+      total = 0;
+      localStorage.removeItem("carrito");
+      localStorage.removeItem("totalCarrito");
+      actualizarProductosEnCarrito();
+      Swal.fire({
+        icon: "success",
+        title: "Carrito vaciado",
+        text: "El carrito se ha vaciado correctamente.",
+      });
+    }
+  });
+}
+
+const BtnVaciarCarrito = document.getElementById("btnVaciarCarrito");
+if (BtnVaciarCarrito) {
+  BtnVaciarCarrito.addEventListener("click", vaciarCarrito);
+}
 function agregarProducto(productoId) {
   const productoSeleccionado = carrito.find(
     (producto) => producto.id === productoId
   );
 
   if (productoSeleccionado) {
-    productoSeleccionado.cantidad++; // Incrementar la cantidad del producto
+    productoSeleccionado.cantidad++;
   } else {
-    // El producto no está en el carrito, agregarlo con cantidad 1
     const producto = productos.find((producto) => producto.id === productoId);
     if (producto) {
       producto.cantidad = 1;
       carrito.push(producto);
     }
   }
-
-  actualizarCarritoLocalStorage(); // Actualizar el carrito en el LocalStorage
+  actualizarCarritoLocalStorage();
   actualizarProductosEnCarrito();
-  // Actualizar la vista del carrito
   function actualizarCarritoLocalStorage() {
     const carritoJSON = JSON.stringify(carrito);
     localStorage.setItem("carrito", carritoJSON);
@@ -565,13 +554,13 @@ function restarProducto(productoId) {
 
   if (productoSeleccionado) {
     if (productoSeleccionado.cantidad > 1) {
-      productoSeleccionado.cantidad--; // Decrementar la cantidad del producto
+      productoSeleccionado.cantidad--;
     } else {
-      // Si la cantidad es 1, eliminar el producto del carrito
+      // si la cantidad es < 1, elimina el producto del carrito
       carrito = carrito.filter((producto) => producto.id !== productoId);
     }
-    actualizarCarritoLocalStorage(); // Actualizar el carrito en el LocalStorage
-    actualizarProductosEnCarrito(); // Actualizar la vista del carrito
+    actualizarCarritoLocalStorage();
+    actualizarProductosEnCarrito();
   }
   function actualizarCarritoLocalStorage() {
     const carritoJSON = JSON.stringify(carrito);

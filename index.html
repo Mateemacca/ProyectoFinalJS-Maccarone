@@ -22,22 +22,40 @@
             <div class="line3"></div>
         </div>
         <ul class="nav-links">
-            <li><a href="#" class="font-bold">Inicio</a></li>
+            <li><a href="index.html" class="font-bold">Inicio</a></li>
             <li><a href="https://www.instagram.com/blestbarbershop/" class="font-bold" target="_blank" >Instagram</a></li>
             <li><a href="productos.html" class="font-bold">Productos</a></li>
-            <li><a href="#" class="font-bold">Servicios</a></li>
+          
             <li><a href="cortes.html" class="font-bold">Cortes</a></li>
         </ul>
-        <div class="flex justify-center text-white mx-5 font-bold text-xl navbar-cortes rounded-3xl  text-center align-middle   my-auto">
-            <button class="rounded-2xl p-4 active:bg-black active:opacity-96 active:scale-110 active:ease-in-out duration-200" id="btnMostrarCarrito" class=""><i class="ri-shopping-cart-2-fill flex"></i></button>
-            <button class=" rounded-2xl p-4 hover:bg-neutral-800 active:bg-black active:opacity-96 active:scale-110 active:ease-in-out duration-200" ><i class="fa fa-heart"></i></button>
+        <div class="flex justify-center text-white mx-5 font-bold text-xl navbar-cortes rounded-3xl  text-center align-middle pr-12  my-auto">
+            <!-- <button class="rounded-2xl hover:bg-neutral-800 p-4 active:bg-black active:opacity-96 active:scale-110 active:ease-in-out duration-200  carrito-icon" id="btnMostrarCarrito" onclick="toggleCarritoPanel()" ><i class="ri-shopping-cart-2-fill flex"></i></button>
+            <button class=" rounded-2xl p-4 hover:bg-neutral-800 active:bg-black active:opacity-96 active:scale-110 active:ease-in-out duration-200 " id="btnMostrarFavoritos" ><i class="fa fa-heart"></i></button> -->
         </div>
     </nav>
+    <div id="carritoPanel" class="carrito-panel">
+        <div class="carrito-content">
+            <button class="cerrar-btn" onclick="toggleCarritoPanel()">&times;</button>
+            <h2 class="font-bold text-2xl">Carrito de compras</h2>
+            <hr>
+            <div class="carrito-productos">
+                <!-- Aquí se mostrarán los productos del carrito -->
+            </div>
+    
+        </div>
+        <div id="totalCarrito" class="total-carrito font-bold text-2xl mb-0 mx-auto flex justify-center flex-col">
+            <!-- <hr><h1 class="mx-auto items-center">Total del carrito: $0</h1>
+            <div class="contenedor-botones-carrito" id="contenedorBotones">
+                <button id="btnVaciarCarrito" class="btn-vaciar-carrito bg-red-600 text-xl text-white rounded-lg w-1/2 mr-2 active:bg-red-800 duration-200 ">Vaciar Carrito</button>
+                <button id="btnFinalizarCompra" onclick="finalizarCompra()" class="btn-finalizar-compra w-1/2 py-[2px] bg-gray-300 rounded-lg active:bg-gray-400 duration-100 ease-in-out">Finalizar Compra</button> -->
+            </div>
+        </div>
+    </div>
     <input type="text" id="inputBuscarProducto" placeholder="Ingrese el nombre del producto" class="hidden">Buscar</button>
 <div class="page-container my-32 place-content-center align-middle h-full flex justify-center flex-col">
     <div class="flex justify-center align-middle">
-        <button id="btnMostrarCarrito" class="hidden text-white mx-5 font-bold text-4xl navbar-cortes rounded-3xl p-4 text-center align-middle active:bg-neutral-900 active:opacity-96 active:ease-in-out duration-200 hover:bg-neutral-800">Carrito <i class="ri-shopping-cart-2-fill"></i></button>
-        <button id="btnVaciarCarrito" class=" hidden text-white mx-5 font-bold text-4xl navbar-cortes rounded-3xl p-4 text-center align-middle active:bg-neutral-900 active:opacity-96 active:ease-in-out duration-200 hover:bg-neutral-800">Vaciar Carrito <i class="ri-shopping-cart-2-line"></i></button>
+        <!-- <button id="btnMostrarCarrito" class="hidden text-white mx-5 font-bold text-4xl navbar-cortes rounded-3xl p-4 text-center align-middle active:bg-neutral-900 active:opacity-96 active:ease-in-out duration-200 hover:bg-neutral-800">Carrito <i class="ri-shopping-cart-2-fill"></i></button>
+        <button id="btnVaciarCarrito" class=" hidden text-white mx-5 font-bold text-4xl navbar-cortes rounded-3xl p-4 text-center align-middle active:bg-neutral-900 active:opacity-96 active:ease-in-out duration-200 hover:bg-neutral-800">Vaciar Carrito <i class="ri-shopping-cart-2-line"></i></button> -->
 </div>
     <div class="text-white font-extrabold text-9xl tracking-widest flex justify-center align-middle text-center my-12  md:text-8xl sm:text-4xl mx-5">
         <h1>WE. ARE. <strong>BLEST</strong></h1>
@@ -50,7 +68,7 @@
 </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 <script src="JS/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
 
