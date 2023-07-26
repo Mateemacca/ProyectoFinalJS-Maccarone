@@ -57,7 +57,7 @@ nav{
     color: rgb(255, 255, 255);
 }
 .nav-links li a:hover {
-    color: #ffffff;
+    color: rgb(221, 220, 220);
    
 }
 .nav-links li {
@@ -684,4 +684,12 @@ max-height: 400px !important;
   .cantidad {
     margin: 0 5px; /* Ajusta el margen entre el botón y el número */
   }
-  
+
+
+  .jemo {
+        background-color: red;
+        color: white;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+  }

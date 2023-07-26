@@ -419,6 +419,9 @@ if (btnMostrarFavoritos) {
 let carritoPanelAbierto = false;
 
 function finalizarCompra() {
+  const spinnerContainer = document.querySelector(".spinner-container");
+  spinnerContainer.style.display = "flex";
+
   // vacia el carrito y el total del carrito en el localstorage
   localStorage.removeItem("carrito");
   localStorage.removeItem("totalCarrito");
@@ -426,11 +429,17 @@ function finalizarCompra() {
   total = 0;
   actualizarProductosEnCarrito();
 
-  Swal.fire({
-    icon: "success",
-    title: "Compra finalizada",
-    text: "La compra se ha realizado con exito. ¡Gracias por tu compra!",
-  });
+  setTimeout(function () {
+    // Ocultar el spinner loading
+    spinnerContainer.style.display = "none";
+
+    // Mostrar el Sweet Alert de éxito al usuario
+    Swal.fire({
+      icon: "success",
+      title: "Compra realizada",
+      text: "La compra se ha realizado con éxito. ¡Gracias por tu compra!",
+    });
+  }, 1500);
 }
 //
 function toggleCarritoPanel() {
