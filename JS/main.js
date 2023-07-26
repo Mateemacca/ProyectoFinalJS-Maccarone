@@ -109,7 +109,7 @@ function asignarEventosAgregarAlCarrito() {
 
         if (productoSeleccionado) {
           Swal.fire({
-            title: "¿Quieres agregar este producto al carrito?",
+            title: "Queres agregar este producto al carrito?",
             text: `${productoSeleccionado.nombre}, precio: ${productoSeleccionado.precio}`,
             showCancelButton: true,
             confirmButtonText: "Si",
@@ -335,7 +335,7 @@ function loadFavoritesFromLocalStorage() {
     const botonFavorito = document.querySelector(`[data-id="${favorito.id}"]`);
     if (botonFavorito) {
       botonFavorito.innerHTML =
-        '<i class="fa fa-heart boton-presionado pointer-events-none"></i>'; // Cambiar al corazon relleno
+        '<i class="fa fa-heart boton-presionado pointer-events-none"></i>'; // cambia al corazon relleno
     }
   });
 }
@@ -422,7 +422,7 @@ function finalizarCompra() {
   const spinnerContainer = document.querySelector(".spinner-container");
   spinnerContainer.style.display = "flex";
 
-  // vacia el carrito y el total del carrito en el localstorage
+  //vacia el carrito y el total del carrito en el localstorage
   localStorage.removeItem("carrito");
   localStorage.removeItem("totalCarrito");
   carrito = [];
@@ -430,18 +430,17 @@ function finalizarCompra() {
   actualizarProductosEnCarrito();
 
   setTimeout(function () {
-    // Ocultar el spinner loading
+    //oculta el spinner loading
     spinnerContainer.style.display = "none";
 
-    // Mostrar el Sweet Alert de éxito al usuario
     Swal.fire({
       icon: "success",
       title: "Compra realizada",
-      text: "La compra se ha realizado con éxito. ¡Gracias por tu compra!",
+      text: "La compra se ha realizado con exito!. Gracias por tu compra!",
     });
   }, 1500);
 }
-//
+
 function toggleCarritoPanel() {
   const carritoPanel = document.getElementById("carritoPanel");
   carritoPanelAbierto = !carritoPanelAbierto; //cambia el estado (abierto/ cerrado)
