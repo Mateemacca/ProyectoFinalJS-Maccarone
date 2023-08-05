@@ -35,7 +35,7 @@ const productos = [
   },
   {
     id: 3,
-    nombre: "Acondicionador richissime exel",
+    nombre: "Acondicionador exel",
     categoria: "ACONDICIONADOR",
     precio: 2300,
     precioAnterior: 2999,
