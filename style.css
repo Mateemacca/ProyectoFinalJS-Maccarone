@@ -391,7 +391,7 @@ max-height: 400px !important;
 
 .btnAgregarAlCarrito {
     position: relative; /* Asegura que la propiedad z-index funcione */
-    z-index: 30; /* Asigna un valor mayor para asegurar que el botón esté en la parte superior */
+    z-index: 1; /* Asigna un valor mayor para asegurar que el botón esté en la parte superior */
   }
 /* 
 .swal2-popup {
@@ -770,6 +770,10 @@ max-height: 400px !important;
     .max-h-400{
         max-height: 480px !important;
     }
+    .we-are-blest-text{
+        font-size: 6rem;
+        line-height: 1;
+    }
 }
 @media only screen and (max-width:425px) {
     .carrito-panel {
@@ -789,6 +793,10 @@ max-height: 400px !important;
     .max-h-400{
         max-height: 320px !important;
     }
+    .we-are-blest-text{
+        font-size: 5rem;
+        line-height: 1;
+    }
 }
 @media only screen and (max-width:375px) {
    
@@ -805,6 +813,11 @@ max-height: 400px !important;
     .max-h-400{
         max-height: 480px !important;
     }
+    .we-are-blest-text{
+        max-width: 100vw;
+        font-size: 5rem;
+        line-height: 1;
+    }
 }
 
 @media only screen and (max-width:320px) {
@@ -820,5 +833,10 @@ max-height: 400px !important;
     }
     .max-h-400{
         max-height: 480px !important;
+    }
+    .we-are-blest-text{
+        max-width: 100vw;
+        font-size: 4rem;
+        line-height: 1;
     }
 }
