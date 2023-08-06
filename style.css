@@ -10,7 +10,7 @@ nav{
 }
 
 .bg-blest-cortes{
-        background-color: #111111 !important;
+        background-color: #111111;
 }
     .background {
    position: relative;
@@ -74,6 +74,15 @@ nav{
     transition: all ease-in-out 180ms;
     margin: 20px auto;
 }
+[data-theme="dark"] .nav-links li a::before {
+    
+    background-color: #000000;
+   
+}
+[data-theme="dark"] .nav-links li a:hover {
+    color: rgb(66, 66, 66);
+   
+}
 .nav-links li a:hover::before{
     width: 100%;
     margin: 20px auto;
@@ -124,6 +133,26 @@ nav{
 .hamburger{
     display: none;
 }
+[data-theme="dark"] .hamburger div{
+    width: 30px;
+    height:3px;
+    background: #000000;
+    margin: 5px;
+    transition: all 0.7s ease;
+}
+[data-theme="dark"] .toggle .line1{
+    transform: rotate(-45deg) translate(-5px,6px);
+    background: #ffffff;
+}
+[data-theme="dark"] .toggle .line2{
+    transition: all 0.7s ease;
+    width:0;
+    background: #ffffff;
+}
+[data-theme="dark"] .toggle .line3{
+    transform: rotate(45deg) translate(-5px,-6px);
+    background: #ffffff;
+}
 
 /*Stying for small screens*/
 @media screen and (max-width: 800px){
@@ -132,6 +161,18 @@ nav{
         z-index: 3;
         top: 0;
     }
+    .navbar {
+        position: relative;
+      }
+      
+      .center-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+      
     .hamburger{
         display:block;
         position: absolute;
@@ -214,6 +255,16 @@ nav{
     li.fade{
         opacity: 1;
     }
+    [data-theme="dark"] .nav-links a {
+        color: white;
+    }
+    .darkbutton{
+        width: 50%!important;
+        inline-size: 50% !important;
+    block-size: 50% !important;
+    stroke-linecap: round;
+    }
+    
 }
 /*Animating Hamburger Icon on Click*/
 .toggle .line1{
@@ -230,9 +281,13 @@ nav{
     background: #ffffff;
 }
 
+
 strong{
 text-shadow:0px 0px 50px #fff,0px 0px 10px #ffffff;
 }
+[data-theme="dark"] strong{
+    text-shadow:0px 0px 50px #343434,0px 0px 20px #2b2b2b;
+    }
 
 
 
@@ -278,7 +333,7 @@ a
 .product-card {
     width: 400px;
     position: relative;
-    /* box-shadow: 0 2px 20px #dfdfdf; */
+    box-shadow: 0 2px 10px #dfdfdf;
     margin: 50px auto;
     background: #fafafa;
 }
@@ -398,7 +453,11 @@ max-height: 400px !important;
     background-color: #333;
     color: #fff;
 }                esto es un efecto de darkmode para el swal pero no lo voy a aplicar todavia */
-     .swal2-input[type=number] {
+[data-theme="dark"] .swal2-input[type=number]{
+    color: black;
+}    
+
+.swal2-input[type=number] {
         max-width: 13%;
         display: flex;
         justify-content: center;
@@ -453,6 +512,20 @@ max-height: 400px !important;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
+    }
+    [data-theme="dark"] #inputBuscarProducto {
+        color: black;
+        background-color: white;
+    }
+    
+
+    
+    [data-theme="dark"] .search-bar input:focus, .search-bar input:valid{
+    background: #fafafa ;
+    box-shadow: 0 0 0 0.1em #3d3d3d inset;
+}
+    [data-theme="dark"] .search-bar input {
+        box-shadow: 0 0 0 0.4em #000000 inset;
     }
     .search-bar input::-webkit-search-decoration {
         -webkit-appearance: none;
@@ -552,7 +625,7 @@ max-height: 400px !important;
         -webkit-appearance: none!important;
         -moz-appearance: none;
         appearance: none;
-            background-color: white!important;
+            background-color: white;
           
     }
 
@@ -560,6 +633,7 @@ max-height: 400px !important;
         
         color: rgb(0, 0, 0) !important;
     }
+    
 
 
     .productoCarritoStyle{
@@ -710,6 +784,11 @@ max-height: 400px !important;
     .max-h-400{
         max-height: 480px !important;
     }
+    .contenedor-texto-blest{
+        margin-top:0rem;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
   }
   @media only screen and (max-width:1024px) {
     .product-card{
@@ -719,6 +798,7 @@ max-height: 400px !important;
     .max-h-400{
         max-height: 368px !important;
     }
+    
 }
 
 @media only screen and (max-width:768px) {
@@ -732,6 +812,7 @@ max-height: 400px !important;
     .max-h-400{
         max-height: 288px !important;
     }
+   
 }
 @media only screen and (max-width:615px) {
     .carrito-panel {
@@ -751,9 +832,8 @@ max-height: 400px !important;
     .max-h-400{
         max-height: 480px !important;
     }
-    .contenedor-texto-blest{
-        margin-top:0rem;
-    }
+   
+
     
 }
 @media only screen and (max-width:520px) {
@@ -843,3 +923,175 @@ max-height: 400px !important;
         line-height: 1;
     }
 }
+
+/*
+
+
+*/
+
+
+  
+  html {
+    --ease-1: cubic-bezier(0.25, 0, 0.5, 1);
+    --ease-2: cubic-bezier(0.25, 0, 0.4, 1);
+    --ease-3: cubic-bezier(0.25, 0, 0.3, 1);
+    --ease-4: cubic-bezier(0.25, 0, 0.2, 1);
+    --ease-5: cubic-bezier(0.25, 0, 0.1, 1);
+    --ease-in-1: cubic-bezier(0.25, 0, 1, 1);
+    --ease-in-2: cubic-bezier(0.5, 0, 1, 1);
+    --ease-in-3: cubic-bezier(0.7, 0, 1, 1);
+    --ease-in-4: cubic-bezier(0.9, 0, 1, 1);
+    --ease-in-5: cubic-bezier(1, 0, 1, 1);
+    --ease-out-1: cubic-bezier(0, 0, 0.75, 1);
+    --ease-out-2: cubic-bezier(0, 0, 0.5, 1);
+    --ease-out-3: cubic-bezier(0, 0, 0.3, 1);
+    --ease-out-4: cubic-bezier(0, 0, 0.1, 1);
+    --ease-out-5: cubic-bezier(0, 0, 0, 1);
+    --ease-in-out-1: cubic-bezier(0.1, 0, 0.9, 1);
+    --ease-in-out-2: cubic-bezier(0.3, 0, 0.7, 1);
+    --ease-in-out-3: cubic-bezier(0.5, 0, 0.5, 1);
+    --ease-in-out-4: cubic-bezier(0.7, 0, 0.3, 1);
+    --ease-in-out-5: cubic-bezier(0.9, 0, 0.1, 1);
+    --ease-elastic-1: cubic-bezier(0.5, 0.75, 0.75, 1.25);
+    --ease-elastic-2: cubic-bezier(0.5, 1, 0.75, 1.25);
+    --ease-elastic-3: cubic-bezier(0.5, 1.25, 0.75, 1.25);
+    --ease-elastic-4: cubic-bezier(0.5, 1.5, 0.75, 1.25);
+    --ease-elastic-5: cubic-bezier(0.5, 1.75, 0.75, 1.25);
+    --ease-squish-1: cubic-bezier(0.5, -0.1, 0.1, 1.5);
+    --ease-squish-2: cubic-bezier(0.5, -0.3, 0.1, 1.5);
+    --ease-squish-3: cubic-bezier(0.5, -0.5, 0.1, 1.5);
+    --ease-squish-4: cubic-bezier(0.5, -0.7, 0.1, 1.5);
+    --ease-squish-5: cubic-bezier(0.5, -0.9, 0.1, 1.5);
+    --ease-step-1: steps(2);
+    --ease-step-2: steps(3);
+    --ease-step-3: steps(4);
+    --ease-step-4: steps(7);
+    --ease-step-5: steps(10);
+    block-size: 100%;
+    color-scheme: light;
+  
+    &[data-theme="dark"] {
+      color-scheme: dark;
+  
+      @supports not (color-scheme: dark) {
+        background: #111;
+      }
+    }
+  }
+  
+  
+  
+  .theme-toggle {
+    --size: 1.6rem;
+    --icon-fill: hsl(0, 0%, 100%);
+    --icon-fill-hover: hsl(0, 0%, 63%);
+  
+    background: none;
+    border: none;
+    padding: 0;
+  
+    inline-size: var(--size);
+    block-size: var(--size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+  
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  
+    outline-offset: 5px;
+  
+    & > svg {
+      inline-size: 100%;
+      block-size: 100%;
+      stroke-linecap: round;
+    }
+  
+    [data-theme="dark"] & {
+        --icon-fill: hsl(0, 0%, 0%);
+        --icon-fill-hover: hsl(0, 0%, 63%);
+    }
+  
+    @media (hover: none) {
+      --size: 48px;
+    }
+  }
+  
+  .sun-and-moon {
+    & > :is(.moon, .sun, .sun-beams) {
+      transform-origin: center center;
+    }
+  
+    & > :is(.moon, .sun) {
+      fill: var(--icon-fill);
+  
+      
+    }
+  
+    & > .sun-beams {
+      stroke: var(--icon-fill);
+      stroke-width: 2px;
+  
+      .theme-toggle:is(:hover, :focus-visible) & {
+        stroke: var(--icon-fill-hover);
+      }
+    }
+  
+    [data-theme="dark"] & {
+      & > .sun {
+        transform: scale(1.75);
+      }
+  
+      & > .sun-beams {
+        opacity: 0;
+      }
+  
+      & > .moon > circle {
+        transform: translateX(-7px);
+  
+        @supports (cx: 1) {
+          transform: translateX(0);
+          cx: 17;
+        }
+      }
+    }
+  
+    @media (prefers-reduced-motion: no-preference) {
+      & > .sun {
+        transition: transform 0.5s var(--ease-elastic-3);
+      }
+  
+      & > .sun-beams {
+        transition: transform 0.5s var(--ease-elastic-4),
+          opacity 0.5s var(--ease-3);
+      }
+  
+      & .moon > circle {
+        transition: transform 0.25s var(--ease-out-5);
+  
+        @supports (cx: 1) {
+          transition: cx 0.25s var(--ease-out-5);
+        }
+      }
+  
+      [data-theme="dark"] & {
+        & > .sun {
+          transform: scale(1.75);
+          transition-timing-function: var(--ease-3);
+          transition-duration: 0.25s;
+        }
+  
+        & > .sun-beams {
+          transform: rotateZ(-25deg);
+          transition-duration: 0.15s;
+        }
+  
+        & > .moon > circle {
+          transition-delay: 0.25s;
+          transition-duration: 0.5s;
+        }
+      }
+    }
+  }
+  
+
