@@ -14,6 +14,17 @@ hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("toggle");
 });
 
+<<<<<<< HEAD
+=======
+/*
+
+
+
+
+
+*/
+
+>>>>>>> 54f512f1d7b8bc48c3d05055720bcba963ff61fb
 let productos;
 fetch("JS/productos.json")
   .then((response) => {
@@ -31,6 +42,67 @@ fetch("JS/productos.json")
     console.error("Error en la solicitud fetch:", error);
   });
 
+<<<<<<< HEAD
+=======
+console.log(productos);
+
+//  [
+//   {
+//     id: 1,
+//     nombre: "Matizador Icon Light",
+//     categoria: "MATIZADOR",
+//     precio: 1500,
+//     precioAnterior: 1899,
+//     imagen: "matizador.jpg",
+//     favorito: false,
+//   },
+//   {
+//     id: 2,
+//     nombre: "Shampoo Kerastase",
+//     categoria: "SHAMPOO",
+//     precio: 2000,
+//     precioAnterior: 2699,
+//     imagen: "shampo.webp",
+//     favorito: false,
+//   },
+//   {
+//     id: 3,
+//     nombre: "Acondicionador exel",
+//     categoria: "ACONDICIONADOR",
+//     precio: 2300,
+//     precioAnterior: 2999,
+//     imagen: "acondicionador.webp",
+//     favorito: false,
+//   },
+//   {
+//     id: 4,
+//     nombre: "Navaja",
+//     categoria: "NAVAJA",
+//     precio: 600,
+//     precioAnterior: 999,
+//     imagen: "navaja.webp",
+//     favorito: false,
+//   },
+//   {
+//     id: 5,
+//     nombre: "Rasuradora",
+//     categoria: "RASURADORA",
+//     precio: 33900,
+//     precioAnterior: 36000,
+//     imagen: "rasuradora.web.jpg",
+//     favorito: false,
+//   },
+//   {
+//     id: 6,
+//     nombre: "Maquina",
+//     categoria: "MAQUINA",
+//     precio: 40000,
+//     precioAnterior: 44000,
+//     imagen: "12660-master-cordless-li-clipper-mlc-straight-stand-6.webp",
+//     favorito: false,
+//   },
+// ];
+>>>>>>> 54f512f1d7b8bc48c3d05055720bcba963ff61fb
 let total = 0;
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let recargoMetodoPago = 0;
