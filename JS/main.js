@@ -14,62 +14,23 @@ hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("toggle");
 });
 
-const productos = [
-  {
-    id: 1,
-    nombre: "Matizador Icon Light",
-    categoria: "MATIZADOR",
-    precio: 1500,
-    precioAnterior: 1899,
-    imagen: "matizador.jpg",
-    favorito: false,
-  },
-  {
-    id: 2,
-    nombre: "Shampoo Kerastase",
-    categoria: "SHAMPOO",
-    precio: 2000,
-    precioAnterior: 2699,
-    imagen: "shampo.webp",
-    favorito: false,
-  },
-  {
-    id: 3,
-    nombre: "Acondicionador exel",
-    categoria: "ACONDICIONADOR",
-    precio: 2300,
-    precioAnterior: 2999,
-    imagen: "acondicionador.webp",
-    favorito: false,
-  },
-  {
-    id: 4,
-    nombre: "Navaja",
-    categoria: "NAVAJA",
-    precio: 600,
-    precioAnterior: 999,
-    imagen: "navaja.webp",
-    favorito: false,
-  },
-  {
-    id: 5,
-    nombre: "Rasuradora",
-    categoria: "RASURADORA",
-    precio: 33900,
-    precioAnterior: 36000,
-    imagen: "rasuradora.web.jpg",
-    favorito: false,
-  },
-  {
-    id: 6,
-    nombre: "Maquina",
-    categoria: "MAQUINA",
-    precio: 40000,
-    precioAnterior: 44000,
-    imagen: "12660-master-cordless-li-clipper-mlc-straight-stand-6.webp",
-    favorito: false,
-  },
-];
+let productos;
+fetch("JS/productos.json")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("La respuesta de la red no fue correcta");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    productos = data;
+    console.log("json response:", productos);
+    return data;
+  })
+  .catch((error) => {
+    console.error("Error en la solicitud fetch:", error);
+  });
+
 let total = 0;
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let recargoMetodoPago = 0;
@@ -576,14 +537,10 @@ function restarProducto(productoId) {
   }
 }
 
-//
-//
-//
-
 const storageKey = "theme-preference";
 
 const onClick = () => {
-  // flip current value
+  // cambia el valor actual
   theme.value = theme.value === "light" ? "dark" : "light";
 
   setPreference();
@@ -614,18 +571,17 @@ const theme = {
   value: getColorPreference(),
 };
 
-// set early so no page flashes / CSS is made aware
+// puesto temprano asi no hay page flashes
 reflectPreference();
 
 window.onload = () => {
-  // set on load so screen readers can see latest value on the button
+  //puesto en el load para que los screen readers puedan ver el valor mas reciente del boton
   reflectPreference();
 
-  // now this script can find and listen for clicks on the control
   document.querySelector("#theme-toggle").addEventListener("click", onClick);
 };
 
-// sync with system changes
+// sincronizacion con los cambios del sistema
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", ({ matches: isDark }) => {
