@@ -14,8 +14,6 @@ hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("toggle");
 });
 
-<<<<<<< HEAD
-=======
 /*
 
 
@@ -24,7 +22,6 @@ hamburger.addEventListener("click", () => {
 
 */
 
->>>>>>> 54f512f1d7b8bc48c3d05055720bcba963ff61fb
 let productos;
 fetch("JS/productos.json")
   .then((response) => {
@@ -42,8 +39,6 @@ fetch("JS/productos.json")
     console.error("Error en la solicitud fetch:", error);
   });
 
-<<<<<<< HEAD
-=======
 console.log(productos);
 
 //  [
@@ -102,7 +97,6 @@ console.log(productos);
 //     favorito: false,
 //   },
 // ];
->>>>>>> 54f512f1d7b8bc48c3d05055720bcba963ff61fb
 let total = 0;
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let recargoMetodoPago = 0;
