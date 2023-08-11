@@ -786,7 +786,7 @@ max-height: 400px !important;
     }
     .contenedor-texto-blest{
         margin-top:0rem;
-        margin-top: 10% !important;
+        margin-top: 2% !important;
         margin-bottom: 10% !important;
     }
   }
@@ -811,6 +811,11 @@ max-height: 400px !important;
     }
     .max-h-400{
         max-height: 288px !important;
+    }
+    .contenedor-texto-blest{
+        margin-top:0rem;
+        margin-top: 10% !important;
+        margin-bottom: 10% !important;
     }
    
 }
