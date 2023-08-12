@@ -789,6 +789,10 @@ max-height: 400px !important;
         margin-top: 2% !important;
         margin-bottom: 10% !important;
     }
+    .product-tumb img {
+        max-width: 100%;
+        height: 480px;
+    }
   }
   @media only screen and (max-width:1024px) {
     .product-card{
@@ -798,6 +802,10 @@ max-height: 400px !important;
     .max-h-400{
         max-height: 368px !important;
     }
+    .product-tumb img {
+        max-width: 100%;
+        height: auto;
+    }
     
 }
 
@@ -806,6 +814,7 @@ max-height: 400px !important;
         width:18rem ;
         
     }
+    
     .navaja{
         background-color: white;
     }
@@ -818,6 +827,7 @@ max-height: 400px !important;
         margin-bottom: 10% !important;
     }
    
+    
 }
 @media only screen and (max-width:615px) {
     .carrito-panel {
@@ -837,7 +847,10 @@ max-height: 400px !important;
     .max-h-400{
         max-height: 480px !important;
     }
-   
+    .product-tumb img {
+        max-width: 100%;
+        height:480px;
+    }
 
     
 }
@@ -861,6 +874,10 @@ max-height: 400px !important;
     .we-are-blest-text{
         font-size: 6rem !important;
         line-height: 1;
+    }
+    .product-tumb img {
+        max-width: 100%;
+        height:auto;
     }
 }
 @media only screen and (max-width:425px) {
@@ -926,6 +943,10 @@ max-height: 400px !important;
         max-width: 100vw;
         font-size: 4rem;
         line-height: 1;
+    }
+    .product-tumb img {
+        max-width: 100%;
+        height:288px;
     }
 }
 
