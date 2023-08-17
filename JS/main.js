@@ -588,3 +588,15 @@ window
     theme.value = isDark ? "dark" : "light";
     setPreference();
   });
+
+
+  // marquesina / marquee
+  const root = document.documentElement;
+const elementosMostradosMarquee = getComputedStyle(root).getPropertyValue("--marquee-elements-displayed");
+const contenidoMarquee = document.querySelector("ul.marquee-content");
+
+root.style.setProperty("--marquee-elements", contenidoMarquee.children.length);
+
+for(let i=0; i<elementosMostradosMarquee; i++) {
+  contenidoMarquee.appendChild(contenidoMarquee.children[i].cloneNode(true));
+}

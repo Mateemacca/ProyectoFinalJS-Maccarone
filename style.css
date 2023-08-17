@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
+
+
 body{
     overflow-x: hidden;
+    transition: background-color .2s ease;
+    max-width: 100vw;
 }
 nav{
     
@@ -7,6 +12,7 @@ nav{
     background-color:#Ffff;
     box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
     display: flex;
+    transition: background-color .2s ease;
 }
 
 .bg-blest-cortes{
@@ -18,7 +24,7 @@ nav{
    background-color: black;
   }
 
-/*Styling logo*/
+
 .logo{
     padding:1vh 1vw;
     text-align: center;
@@ -28,7 +34,7 @@ nav{
     width: 5rem;
 }
 
-/*Styling Links*/
+
 .nav-links{
     display: flex;
     list-style: none; 
@@ -254,7 +260,7 @@ nav{
     }
     
 }
-/*Animating Hamburger Icon on Click*/
+
 .toggle .line1{
     transform: rotate(-45deg) translate(-5px,6px);
     background: #ffffff;
@@ -283,9 +289,7 @@ text-shadow:0px 0px 50px #fff,0px 0px 10px #ffffff;
   .navbar-cortes, .navbar {
     background-color: #161616
   }  
-  /* .navbar-cortes {
-    background-color: #1f1f1f;
-  } */
+
 .fotos-cortes{
     max-width: 38rem;
     max-height: 26rem;
@@ -737,7 +741,12 @@ max-height: 400px !important;
   .cantidad {
     margin: 0 5px; 
   }
-
+  .pray-icon {
+    color: white;
+    height: 3.5vh !important;
+    width: 2.5vw !important;
+     border: none !important;
+}
 
   
   @media only screen and (max-width:1280px) {
@@ -772,6 +781,12 @@ max-height: 400px !important;
         max-width: 100%;
         height: 480px;
     }
+    .pray-icon {
+        color: white;
+        height: 4vh !important;
+        width: 3vw !important;
+         border: none !important;
+    }
   }
   @media only screen and (max-width:1024px) {
     .product-card{
@@ -784,6 +799,12 @@ max-height: 400px !important;
     .product-tumb img {
         max-width: 100%;
         height: auto;
+    }
+    .pray-icon {
+        color: white;
+        height: 85% !important;
+        width: 32px !important;
+         border: none !important;
     }
     
 }
@@ -1095,3 +1116,98 @@ max-height: 400px !important;
   }
   
 
+  :root {
+    --marquee-width: 100vw;
+    --marquee-height: 4vh;
+    --marquee-elements-displayed: 5;
+    --marquee-element-width: calc(var(--marquee-width) / var(--marquee-elements-displayed));
+    --marquee-animation-duration: calc(var(--marquee-elements) * 3s);
+  }
+  
+  .marquee {
+    width: var(--marquee-width);
+    height: var(--marquee-height);
+    background-color: #111;
+    color: #eee;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.364);
+  }
+  .marquee:before, .marquee:after {
+    position: absolute;
+    top: 0;
+    width: 10rem;
+    height: 100%;
+    content: "";
+    z-index: 1;
+  }
+  [data-theme="dark"]  .marquee:before {
+    left: 0;
+    background: linear-gradient(to right, #111 0%, transparent 100%);
+  }
+  [data-theme="dark"] .marquee:after {
+    right: 0;
+    background: linear-gradient(to left, #111 0%, transparent 100%);
+  }
+
+ .marquee:before {
+    left: 0;
+    background: linear-gradient(to right, #ffffff 0%, transparent 100%);
+  }
+  .marquee:after {
+    right: 0;
+    background: linear-gradient(to left, #ffffff 0%, transparent 100%);
+ }
+  .marquee-content {
+    list-style: none;
+    height: 100%;
+    display: flex;
+    animation: scrolling var(--marquee-animation-duration) linear infinite;
+  }
+  
+  @keyframes scrolling {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-1 * var(--marquee-element-width) * var(--marquee-elements))); }
+  }
+  .marquee-content li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    flex-shrink: 0;
+    width: var(--marquee-element-width);
+    max-height: 100%;
+    font-size: calc(var(--marquee-height)*3/4);
+    white-space: nowrap;
+  }
+  
+  .marquee-content li img {
+    width: 100%;
+    border: 2px solid #eee;
+  }
+  
+  tml { font-size: 12px; }
+  root {
+   --marquee-width: 100vw;
+   --marquee-height: 4vh;
+   --marquee-elements-displayed: 3;
+  
+  marquee:before, .marquee:after { width: 5rem; }
+  }
+  
+.ri-scissors-fill {
+    rotate: 180deg;
+}
+
+.marquee {
+    box-shadow:0px 0px 10px #ffffff !important;
+ }
+
+ [data-theme="dark"] .marquee {
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.364) !important;
+ }
+
+ .blest-cursive {
+    font-family: 'Mr Dafoe', cursive;
+    font-weight: 300;
+ }
