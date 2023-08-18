@@ -591,12 +591,18 @@ window
 
 
   // marquesina / marquee
-  const root = document.documentElement;
-const elementosMostradosMarquee = getComputedStyle(root).getPropertyValue("--marquee-elements-displayed");
-const contenidoMarquee = document.querySelector("ul.marquee-content");
-
-root.style.setProperty("--marquee-elements", contenidoMarquee.children.length);
-
-for(let i=0; i<elementosMostradosMarquee; i++) {
-  contenidoMarquee.appendChild(contenidoMarquee.children[i].cloneNode(true));
-}
+  document.addEventListener('DOMContentLoaded', function() {
+    const contenidoMarquee = document.querySelector("ul.marquee-content");
+  // se ejecuta solo si esta la marquesina (o sea solo en la pagina productos.html)
+    if (contenidoMarquee) {
+      const root = document.documentElement;
+      const elementosMostradosMarquee = getComputedStyle(root).getPropertyValue("--marquee-elements-displayed");
+  
+      root.style.setProperty("--marquee-elements", contenidoMarquee.children.length);
+  
+      for (let i = 0; i < elementosMostradosMarquee; i++) {
+        contenidoMarquee.appendChild(contenidoMarquee.children[i].cloneNode(true));
+      }
+    }
+  });
+  
